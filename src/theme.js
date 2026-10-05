@@ -25,6 +25,7 @@ const theme = {
     fontWeight: {
       regular: 400,
       medium: 500,
+      semibold: 600,
       bold: 700,
     },
     fontSize: {
@@ -34,7 +35,7 @@ const theme = {
     },
     lineHeight: {
       caption: 1.5,
-      body: 1.5,
+      body: 1.7,
       title: 1.2,
     },
   },
@@ -55,6 +56,7 @@ const theme = {
     lg: '16px',
     xl: '24px',
     xxl: '32px',
+    xxxl: '48px',
   },
 }
 
