@@ -24,5 +24,7 @@ export const PeriodBlock = styled.div`
 export const Period = styled.div`
   font-weight: ${theme.typography.fontWeight.bold};
 `
+
+export const GraphContent = styled.div``
 export const Chart = styled.div``
 export const CategoryList = styled.div``

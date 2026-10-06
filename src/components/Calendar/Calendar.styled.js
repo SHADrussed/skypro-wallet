@@ -45,9 +45,12 @@ export const Weekday = styled.span`
   padding: ${theme.spacing.sm};
 `
 export const CalendarFooter = styled.div`
+  padding: ${theme.spacing.xxl};
+  overflow-y: auto;
+  max-height: 390px;
   display: flex;
-  justify-content: space-between;
-  padding: ${theme.spacing.xxl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+  flex-direction: column;
+  gap: ${theme.spacing.xl};
 `
 
 export const MonthWrapper = styled.div`

@@ -13,10 +13,53 @@ import {
   Weekdays,
 } from './Calendar.styled'
 const weekdays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
-
-const days = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31,
+const months = [
+  {
+    name: 'Июль 2024',
+    days: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+    ],
+  },
+  {
+    name: 'Август 2024',
+    days: [
+      null,
+      null,
+      null,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+    ],
+  },
 ]
 export default function Calendar() {
   return (
@@ -36,15 +79,17 @@ export default function Calendar() {
         ))}
       </Weekdays>
       <CalendarFooter>
-        <MonthWrapper>
-          <MonthTitle>Июль 2024</MonthTitle>
+        {months.map((month) => (
+          <MonthWrapper>
+            <MonthTitle>{month.name}</MonthTitle>
 
-          <DaysGrid>
-            {days.map((day, index) => (
-              <Day key={index}>{day}</Day>
-            ))}
-          </DaysGrid>
-        </MonthWrapper>
+            <DaysGrid>
+              {month.days.map((day, index) => (
+                <Day key={index}>{day}</Day>
+              ))}
+            </DaysGrid>
+          </MonthWrapper>
+        ))}
       </CalendarFooter>
     </CalendarCard>
   )

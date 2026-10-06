@@ -18,10 +18,10 @@ export default function Graphs() {
           <Period>10 июля 2024</Period>
         </PeriodBlock>
       </AnalyticsHeader>
-      <TotalAmount>
-        <Chart></Chart>
-        <CategoryList></CategoryList>
-      </TotalAmount>
+      <GraphContent>
+        <Chart />
+        <CategoryList />
+      </GraphContent>
     </GraphsStyled>
   )
 }
