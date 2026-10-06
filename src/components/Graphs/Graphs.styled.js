@@ -3,12 +3,16 @@ import theme from '../../theme'
 import { Title } from '../../common'
 
 export const GraphsStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   background-color: ${theme.colors.surface};
 
   border-radius: ${theme.radii.card};
   height: inherit;
 
-  padding: ${theme.spacing.xxl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+  padding: ${theme.spacing.xxl};
 `
 export const AnalyticsHeader = styled.div``
 export const TotalAmount = styled(Title)`
@@ -26,5 +30,49 @@ export const Period = styled.div`
 `
 
 export const GraphContent = styled.div``
-export const Chart = styled.div``
-export const CategoryList = styled.div``
+
+export const Chart = styled.div`
+  margin-top: ${theme.spacing.xl};
+  overflow-y: auto;
+  height: 360px;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+`
+
+export const Column = styled.div`
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+`
+
+export const BarArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+export const Amount = styled.span`
+  margin-bottom: 12px;
+
+  font-weight: ${theme.typography.fontWeight.semibold};
+`
+
+export const Category = styled.span`
+  margin-top: 12px;
+  text-align: center;
+
+  font-size: ${theme.typography.fontSize.caption};
+`
+export const Bar = styled.div`
+  width: 94px;
+
+  height: ${({ $height, $empty }) => ($empty ? '4px' : `${$height}%`)};
+
+  border-radius: ${({ $empty }) => ($empty ? '4px' : '12px')};
+
+  background-color: ${({ $color }) => theme.colors.chart[$color]};
+`

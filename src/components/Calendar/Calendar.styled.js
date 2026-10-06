@@ -47,38 +47,42 @@ export const Weekday = styled.span`
 export const CalendarFooter = styled.div`
   padding: ${theme.spacing.xxl};
   overflow-y: auto;
-  max-height: 390px;
+  max-height: 420px;
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xl};
 `
 
 export const MonthWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 `
 
 export const MonthTitle = styled.span`
   font-size: ${theme.typography.fontSize.month};
   font-weight: ${theme.typography.fontWeight.semibold};
-
-  margin-bottom: ${theme.spacing.md};
 `
 
 export const DaysGrid = styled.div`
+  margin-top: ${theme.spacing.md};
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+  gap: ${theme.spacing.xs};
 `
 export const Day = styled.div`
   width: 40px;
   height: 40px;
-  font-size: ${theme.typography.fontSize.body};
-  padding: ${theme.spacing.md};
+
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: ${theme.typography.fontSize.body};
   background-color: ${theme.colors.background};
-  border-radius: ${theme.radii.card};
+  border-radius: 50%;
   color: ${theme.colors.text};
+
+  ${({ $first, $startColumn }) =>
+    $first && `grid-column-start: ${$startColumn};`}
 
   &:hover {
     cursor: pointer;

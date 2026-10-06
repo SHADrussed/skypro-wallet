@@ -16,49 +16,13 @@ const weekdays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
 const months = [
   {
     name: 'Июль 2024',
-    days: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-    ],
+    firstDay: 1,
+    days: 31,
   },
   {
     name: 'Август 2024',
-    days: [
-      null,
-      null,
-      null,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31,
-    ],
+    firstDay: 4,
+    days: 31,
   },
 ]
 export default function Calendar() {
@@ -80,13 +44,23 @@ export default function Calendar() {
       </Weekdays>
       <CalendarFooter>
         {months.map((month) => (
-          <MonthWrapper>
+          <MonthWrapper key={month.name}>
             <MonthTitle>{month.name}</MonthTitle>
 
             <DaysGrid>
-              {month.days.map((day, index) => (
-                <Day key={index}>{day}</Day>
-              ))}
+              {Array.from({ length: month.days }, (_, index) => {
+                const day = index + 1
+
+                return (
+                  <Day
+                    key={day}
+                    $first={day === 1}
+                    $startColumn={month.firstDay}
+                  >
+                    {day}
+                  </Day>
+                )
+              })}
             </DaysGrid>
           </MonthWrapper>
         ))}

@@ -12,6 +12,7 @@ const theme = {
     errorBorder: '#FFBABA',
     errorText: '#E34B4B',
     chart: {
+      violet: '#A7A5FF',
       purple: '#D9B8FF',
       orange: '#FFB543',
       blue: '#B9D0FF',
