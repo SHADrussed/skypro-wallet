@@ -139,5 +139,9 @@ export const MonthButton = styled.button`
   font-family: inherit;
   font-size: ${theme.typography.fontSize.caption};
 
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    color: ${theme.colors.chart.greenText};
+    background-color: ${theme.colors.chart.greenSurface};
+  }
 `
