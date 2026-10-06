@@ -6,6 +6,11 @@ export const HeaderS = styled.header`
   padding: 20px 120px;
   flex-direction: row;
   justify-content: space-between;
+  background-color: ${theme.colors.surface};
+  @media screen and (max-width: 375px) {
+    padding: 20px 16px;
+    background-color: ${theme.colors.background};
+  }
 `
 
 export const NavBar = styled.nav`

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from '../theme'
 
 export const ErrorNotFound = styled.div`
   font-size: 36px;
@@ -8,5 +9,5 @@ export const ErrorNotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(234, 238, 246);
+  background-color: ${theme.colors.background};
 `

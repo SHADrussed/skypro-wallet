@@ -11,8 +11,13 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem('userInfo')
   }
 
+  const login = () => {
+    setIsAuth(true)
+    localStorage.setItem('userInfo', JSON.stringify({}))
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, logout }}>
+    <AuthContext.Provider value={{ isAuth, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

@@ -3,12 +3,12 @@ import { ExitButton, HeaderS, NavBar, NavLink } from './Header.styled'
 import { useAuth } from '../../context/ContextProvider'
 
 const Header = () => {
-  const { Auth } = useAuth()
+  const { isAuth, logout } = useAuth()
   return (
     <HeaderS>
       <img src="/logo.svg" alt="" />
 
-      {Auth && (
+      {isAuth && (
         <NavBar>
           <NavLink href="" $active={true}>
             Мои расходы
@@ -20,9 +20,11 @@ const Header = () => {
         </NavBar>
       )}
 
-      {Auth && (
+      {isAuth && (
         <ExitButton>
-          <Link to={'/login'}>Выход</Link>
+          <Link onClick={logout}>
+            Выход
+          </Link>
         </ExitButton>
       )}
     </HeaderS>
