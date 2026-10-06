@@ -5,15 +5,15 @@ export const Page = styled.div`
   background-color: ${theme.colors.background};
 
   padding: 20px 120px;
-  height: 100vh;
+  min-height: calc(100vh - 64px);
 `
 export const Title = styled.h1`
   margin-bottom: ${theme.spacing.xxl};
 `
 
 export const AnalyticsBlock = styled.div`
-  height: 540px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(380px, 1fr) minmax(0, 2fr);
+  height: 540px;
   gap: ${theme.spacing.xxl};
 `

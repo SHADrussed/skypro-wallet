@@ -24,13 +24,27 @@ export const NavBar = styled.nav`
 export const NavLink = styled(RouterNavLink)`
   font-weight: ${theme.typography.fontWeight.regular};
   font-size: ${theme.typography.fontSize.body};
-  line-height: ${theme.typography.lineHeight.body};
+  height: fit-content;
 
   text-decoration: none;
-  border-bottom: ${({ $active }) => ($active ? `1px solid  ${theme.colors.primary}` : 'none')};
+  border-bottom: ${({ $active, $isSpending }) =>
+    $active
+      ? `1px solid ${
+          $isSpending ? theme.colors.primary : theme.colors.chart.green
+        }`
+      : 'none'};
 
-  color: ${({ $active }) =>
-    $active ? theme.colors.primary : theme.colors.text};
+  color: ${({ $active, $isSpending }) =>
+    $active
+      ? $isSpending
+        ? theme.colors.primary
+        : theme.colors.chart.green
+      : theme.colors.text};
+
+  font-weight: ${({ $active }) =>
+    $active
+      ? `${theme.typography.fontWeight.bold}`
+      : `${theme.typography.fontWeight.regular}`};
 `
 
 export const Exit = styled.a`

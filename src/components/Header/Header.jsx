@@ -6,7 +6,7 @@ const Header = ({ isSpendingTablePage }) => {
       <Logo src="/logo.svg" alt="Skypro Wallet" />
 
       <NavBar>
-        <NavLink to="/" $active={isSpendingTablePage}>
+        <NavLink to="/" $active={isSpendingTablePage} $isSpending={true}>
           Мои расходы
         </NavLink>
 
