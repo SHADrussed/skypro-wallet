@@ -1,20 +1,27 @@
 import styled from 'styled-components'
 import theme from '../../theme'
+import { NavLink as RouterNavLink } from 'react-router-dom'
 
 export const HeaderS = styled.header`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
   padding: 20px 120px;
-  flex-direction: row;
-  justify-content: space-between;
+`
+
+export const Logo = styled.img`
+  justify-self: start;
 `
 
 export const NavBar = styled.nav`
   display: flex;
   gap: ${theme.spacing.xxxl};
-  flex-direction: row;
+
+  justify-self: center;
 `
 
-export const NavLink = styled.a`
+export const NavLink = styled(RouterNavLink)`
   font-weight: ${theme.typography.fontWeight.regular};
   font-size: ${theme.typography.fontSize.body};
   line-height: ${theme.typography.lineHeight.body};
@@ -27,6 +34,8 @@ export const NavLink = styled.a`
 `
 
 export const Exit = styled.a`
+  justify-self: end;
+
   font-weight: ${theme.typography.fontWeight.semibold};
   font-size: ${theme.typography.fontSize.body};
   line-height: ${theme.typography.lineHeight.body};

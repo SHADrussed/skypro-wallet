@@ -1,16 +1,16 @@
-import { Exit, HeaderS, NavBar, NavLink } from './Header.styled'
+import { Exit, HeaderS, Logo, NavBar, NavLink } from './Header.styled'
 
 const Header = ({ isSpendingTablePage }) => {
   return (
     <HeaderS>
-      <img src="/logo.svg" alt="" />
+      <Logo src="/logo.svg" alt="Skypro Wallet" />
 
       <NavBar>
-        <NavLink href="" $active={isSpendingTablePage}>
+        <NavLink to="/" $active={isSpendingTablePage}>
           Мои расходы
         </NavLink>
 
-        <NavLink href="" $active={!isSpendingTablePage}>
+        <NavLink to="/analytics" $active={!isSpendingTablePage}>
           Анализ расходов
         </NavLink>
       </NavBar>
