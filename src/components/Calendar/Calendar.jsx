@@ -129,9 +129,17 @@ export default function Calendar() {
               <YearTitle>{item.year}</YearTitle>
 
               <MonthsGrid>
-                {item.months.map((month) => (
-                  <MonthButton key={month}>{month}</MonthButton>
-                ))}
+                {item.months.map((month, index) => {
+                  const selected =
+                    (item.year === 2024 && index >= 7) ||
+                    (item.year === 2025 && index <= 4)
+
+                  return (
+                    <MonthButton key={month} $selected={selected}>
+                      {month}
+                    </MonthButton>
+                  )
+                })}
               </MonthsGrid>
             </YearBlock>
           ))}

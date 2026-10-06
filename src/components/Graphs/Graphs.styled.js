@@ -51,7 +51,8 @@ export const Chart = styled.div`
   &::-webkit-scrollbar-corner {
     display: none;
   }
-  overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 360px;
 
   display: grid;

@@ -64,7 +64,8 @@ export const CalendarFooter = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    display: none;
+    background: #c9c9c9;
+    border-radius: 10px;
   }
 
   &::-webkit-scrollbar-corner {
