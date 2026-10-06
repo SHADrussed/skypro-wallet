@@ -1,15 +1,29 @@
 import Calendar from '../Calendar/Calendar'
 import Graphs from '../Graphs/Graphs'
-import { AnalyticsBlock, Page, Title } from './Analytics.styled'
+import { Link } from 'react-router-dom'
+import {
+  AnalyticsBlock,
+  CalendarSection,
+  Page,
+  PeriodLink,
+  Title,
+} from './Analytics.styled'
 
-export default function Analytics() {
+export default function Analytics({ showCalendar = true }) {
   return (
     <Page>
       <Title>Анализ расходов</Title>
       <AnalyticsBlock>
-        <Calendar />
+        {showCalendar && (
+          <CalendarSection>
+            <Calendar />
+          </CalendarSection>
+        )}
         <Graphs />
       </AnalyticsBlock>
+      <PeriodLink as={Link} to="/analytics/period">
+        Выбрать другой период
+      </PeriodLink>
     </Page>
   )
 }

@@ -106,12 +106,18 @@ export default function Calendar() {
                 <DaysGrid>
                   {Array.from({ length: month.days }, (_, index) => {
                     const day = index + 1
+                    const selected =
+                      (month.name === 'Июль 2024' && day >= 29) ||
+                      (month.name === 'Август 2024' && day <= 4)
 
                     return (
                       <Day
                         key={day}
                         $first={day === 1}
                         $startColumn={month.firstDay}
+                        $selected={selected}
+                        $rangeStart={month.name === 'Июль 2024' && day === 29}
+                        $rangeEnd={month.name === 'Август 2024' && day === 4}
                       >
                         {day}
                       </Day>

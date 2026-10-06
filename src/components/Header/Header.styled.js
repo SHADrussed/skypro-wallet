@@ -8,10 +8,20 @@ export const HeaderS = styled.header`
   align-items: center;
 
   padding: 20px 120px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr auto 1fr;
+    padding: 16px;
+  }
 `
 
 export const Logo = styled.img`
   justify-self: start;
+
+  @media (max-width: 768px) {
+    width: 104px;
+    max-width: 100%;
+  }
 `
 
 export const NavBar = styled.nav`
@@ -19,6 +29,11 @@ export const NavBar = styled.nav`
   gap: ${theme.spacing.xxxl};
 
   justify-self: center;
+
+  @media (max-width: 768px) {
+    justify-self: center;
+    gap: 0;
+  }
 `
 
 export const NavLink = styled(RouterNavLink)`
@@ -45,6 +60,15 @@ export const NavLink = styled(RouterNavLink)`
     $active
       ? `${theme.typography.fontWeight.bold}`
       : `${theme.typography.fontWeight.regular}`};
+  @media (max-width: 768px) {
+    display: none;
+
+    &:last-child {
+      display: block;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
 `
 
 export const Exit = styled.a`
@@ -55,4 +79,8 @@ export const Exit = styled.a`
   line-height: ${theme.typography.lineHeight.body};
   text-decoration: none;
   color: ${theme.colors.text};
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `

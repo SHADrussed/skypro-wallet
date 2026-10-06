@@ -7,14 +7,29 @@ export const CalendarCard = styled.div`
 
   border-radius: ${theme.radii.card};
   height: inherit;
+
+  @media (max-width: 768px) {
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+  }
 `
 export const CalendarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   padding: ${theme.spacing.xxl} ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+
+  @media (max-width: 768px) {
+    align-items: center;
+    padding: 0;
+  }
 `
 export const CalendarHeaderTitle = styled(Title)`
   margin-bottom: ${theme.spacing.xl};
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
 `
 
 export const CalendarHeaderPeriods = styled.div`
@@ -23,13 +38,23 @@ export const CalendarHeaderPeriods = styled.div`
   justify-content: space-between;
 
   gap: ${theme.spacing.lg};
+
+  @media (max-width: 768px) {
+    gap: 24px;
+  }
 `
 
-export const PeriodVariant = styled.span`
+export const PeriodVariant = styled.button`
   font-weight: ${theme.typography.fontWeight.bold};
   height: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
   color: ${({ $active }) => ($active ? theme.colors.chart.green : theme.colors.text)};
   border-bottom: ${({ $active }) => ($active ? `1px solid ${theme.colors.chart.green}` : 'none')};
+  cursor: pointer;
 `
 
 export const Weekdays = styled.div`
@@ -39,10 +64,19 @@ export const Weekdays = styled.div`
   grid-template-columns: repeat(7, 1fr);
 
   border-bottom: 1px solid ${theme.colors.text};
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `
 
 export const Weekday = styled.span`
   padding: ${theme.spacing.sm};
+
+  @media (max-width: 768px) {
+    padding: 8px 0;
+    text-align: center;
+  }
 `
 export const CalendarFooter = styled.div`
   padding: ${theme.spacing.xxl};
@@ -71,6 +105,12 @@ export const CalendarFooter = styled.div`
   &::-webkit-scrollbar-corner {
     display: none;
   }
+
+  @media (max-width: 768px) {
+    max-height: none;
+    padding: 16px 0 0;
+    overflow: visible;
+  }
 `
 
 export const MonthWrapper = styled.div`
@@ -87,6 +127,11 @@ export const DaysGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: ${theme.spacing.xs};
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+  }
 `
 export const Day = styled.div`
   width: 40px;
@@ -97,9 +142,14 @@ export const Day = styled.div`
   justify-content: center;
 
   font-size: ${theme.typography.fontSize.body};
-  background-color: ${theme.colors.background};
+  background-color: ${({ $selected }) =>
+    $selected ? theme.colors.chart.greenSurface : theme.colors.background};
   border-radius: 50%;
-  color: ${theme.colors.text};
+  color: ${({ $selected }) =>
+    $selected ? theme.colors.chart.greenText : theme.colors.text};
+
+  ${({ $rangeStart }) => $rangeStart && 'border-top-left-radius: 50%;'}
+  ${({ $rangeEnd }) => $rangeEnd && 'border-bottom-right-radius: 50%;'}
 
   ${({ $first, $startColumn }) =>
     $first && `grid-column-start: ${$startColumn};`}
@@ -108,6 +158,11 @@ export const Day = styled.div`
     cursor: pointer;
     color: ${theme.colors.chart.greenText};
     background-color: ${theme.colors.chart.greenSurface};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: min(44px, calc((100vw - 56px) / 7));
   }
 `
 
@@ -123,6 +178,10 @@ export const MonthsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 `
 
 export const MonthButton = styled.button`
