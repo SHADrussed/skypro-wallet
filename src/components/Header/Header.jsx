@@ -1,16 +1,16 @@
 import { Exit, HeaderS, NavBar, NavLink } from './Header.styled'
 
-const Header = () => {
+const Header = ({ isSpendingTablePage }) => {
   return (
     <HeaderS>
       <img src="/logo.svg" alt="" />
 
       <NavBar>
-        <NavLink href="" $active={true}>
+        <NavLink href="" $active={isSpendingTablePage}>
           Мои расходы
         </NavLink>
 
-        <NavLink href="" $active={false}>
+        <NavLink href="" $active={!isSpendingTablePage}>
           Анализ расходов
         </NavLink>
       </NavBar>

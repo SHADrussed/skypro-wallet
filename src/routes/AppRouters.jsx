@@ -5,6 +5,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<SpendingTablePage />} />
+      <Route path="/analytics" element={<SpendingTablePage />} />
     </Routes>
   )
 }

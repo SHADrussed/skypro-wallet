@@ -17,7 +17,7 @@ const SpendingTablePage = () => {
 
   return (
     <div>
-      <Header />
+      <Header isSpendingTablePage={true} />
       <SpendingTable />
     </div>
   )
