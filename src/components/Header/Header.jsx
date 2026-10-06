@@ -1,21 +1,30 @@
-import { Exit, HeaderS, NavBar, NavLink } from './Header.styled'
+import { Link } from 'react-router-dom'
+import { ExitButton, HeaderS, NavBar, NavLink } from './Header.styled'
+import { useAuth } from '../../context/ContextProvider'
 
 const Header = () => {
+  const { Auth } = useAuth()
   return (
     <HeaderS>
       <img src="/logo.svg" alt="" />
 
-      <NavBar>
-        <NavLink href="" $active={true}>
-          Мои расходы
-        </NavLink>
+      {Auth && (
+        <NavBar>
+          <NavLink href="" $active={true}>
+            Мои расходы
+          </NavLink>
 
-        <NavLink href="" $active={false}>
-          Анализ расходов
-        </NavLink>
-      </NavBar>
+          <NavLink href="" $active={false}>
+            Анализ расходов
+          </NavLink>
+        </NavBar>
+      )}
 
-      <Exit>Выход</Exit>
+      {Auth && (
+        <ExitButton>
+          <Link to={'/login'}>Выход</Link>
+        </ExitButton>
+      )}
     </HeaderS>
   )
 }

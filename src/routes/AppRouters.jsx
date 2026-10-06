@@ -1,10 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 import SpendingTablePage from '../pages/SpendingTablePage'
+import LoginPage from '../pages/LoginPage'
+import RegisterPage from '../pages/RegisterPage'
+import NotFoundPage from '../pages/NotFoundPage'
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<SpendingTablePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

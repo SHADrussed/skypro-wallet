@@ -26,10 +26,17 @@ export const NavLink = styled.a`
     $active ? theme.colors.primary : theme.colors.text};
 `
 
-export const Exit = styled.a`
+export const ExitButton = styled.button`
+  border: none;
+  background-color: #fff;
   font-weight: ${theme.typography.fontWeight.semibold};
   font-size: ${theme.typography.fontSize.body};
   line-height: ${theme.typography.lineHeight.body};
-  text-decoration: none;
-  color: ${theme.colors.text};
+  & a {
+    color: ${theme.colors.text};
+    text-decoration: none;
+  }
+  & a:hover {
+    color: ${theme.colors.primary};
+  }
 `
