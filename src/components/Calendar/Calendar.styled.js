@@ -51,6 +51,25 @@ export const CalendarFooter = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xl};
+
+  scrollbar-width: thin;
+  scrollbar-color: #c9c9c9 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
 `
 
 export const MonthWrapper = styled.div`
@@ -89,4 +108,35 @@ export const Day = styled.div`
     color: ${theme.colors.chart.greenText};
     background-color: ${theme.colors.chart.greenSurface};
   }
+`
+
+export const YearBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const YearTitle = styled(MonthTitle)`
+  margin-bottom: ${theme.spacing.md};
+`
+
+export const MonthsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+`
+
+export const MonthButton = styled.button`
+  height: 34px;
+
+  border: none;
+  border-radius: 20px;
+  background: ${({ $selected }) =>
+    $selected ? theme.colors.chart.greenSurface : theme.colors.background};
+
+  color: ${({ $selected }) =>
+    $selected ? theme.colors.chart.greenText : theme.colors.text};
+
+  font-family: inherit;
+  font-size: ${theme.typography.fontSize.caption};
+
+  cursor: pointer;
 `

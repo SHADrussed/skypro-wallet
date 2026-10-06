@@ -33,6 +33,24 @@ export const GraphContent = styled.div``
 
 export const Chart = styled.div`
   margin-top: ${theme.spacing.xl};
+  scrollbar-width: thin;
+  scrollbar-color: #c9c9c9 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
   overflow-y: auto;
   height: 360px;
 
