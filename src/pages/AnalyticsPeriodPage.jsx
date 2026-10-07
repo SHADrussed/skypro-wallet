@@ -58,7 +58,7 @@ const PeriodActionArea = styled.div`
 
 const ConfirmButton = styled.button`
   width: 100%;
-  min-height: 52px;
+  min-height: 40px;
   border: 0;
   border-radius: 8px;
   background: ${theme.colors.chart.greenText};

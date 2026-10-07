@@ -27,7 +27,7 @@ export const CalendarHeader = styled.div`
     justify-content: space-between;
     padding: 0 0 ${({ $periodMode }) => ($periodMode === 'year' ? '12px' : '0')};
     border-bottom: ${({ $periodMode }) =>
-      $periodMode === 'year' ? `1px solid ${theme.colors.background}` : 'none'};
+      $periodMode === 'year' ? '1px solid #D9D9D9' : 'none'};
   }
 `
 export const CalendarHeaderTitle = styled(Title)`
@@ -72,7 +72,7 @@ export const Weekdays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
-  border-bottom: 1px solid ${theme.colors.text};
+  border-bottom: 1px solid #D9D9D9;
 
   @media (max-width: 768px) {
     padding: 0;
@@ -118,7 +118,7 @@ export const CalendarFooter = styled.div`
   @media (max-width: 768px) {
     max-height: none;
     flex: 1;
-    padding: ${({ $periodMode }) => ($periodMode === 'year' ? '20px 0 0' : '16px 0 0')};
+    padding: ${({ $periodMode }) => ($periodMode === 'year' ? '24px 0 0' : '20px 0 0')};
     overflow: visible;
   }
 `

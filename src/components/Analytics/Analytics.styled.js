@@ -68,7 +68,7 @@ export const PeriodLink = styled.a`
   @media (max-width: 768px) {
     display: flex;
     width: 100%;
-    min-height: 52px;
+    min-height: 40px;
     align-items: center;
     justify-content: center;
     margin-top: 0;

@@ -128,7 +128,7 @@ export const Amount = styled.span`
   @media (max-width: 768px) {
     max-width: 100%;
     margin-bottom: 8px;
-    font-size: 10px;
+    font-size: 11px;
     text-align: center;
     white-space: nowrap;
   }
@@ -145,7 +145,7 @@ export const Category = styled.span`
     overflow: hidden;
     max-width: 100%;
     margin-top: 8px;
-    font-size: 10px;
+    font-size: 11px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
