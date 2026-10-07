@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useAnalytics } from '../../context/AnalyticsContext'
 import {
   CalendarCard,
   CalendarFooter,
@@ -68,7 +68,7 @@ const years = [
   },
 ]
 export default function Calendar() {
-  const [periodMode, setPeriodMode] = useState('month')
+  const { periodMode, setPeriodMode, setSelectedPeriod } = useAnalytics()
 
   return (
     <CalendarCard>
@@ -118,6 +118,9 @@ export default function Calendar() {
                         $selected={selected}
                         $rangeStart={month.name === 'Июль 2024' && day === 29}
                         $rangeEnd={month.name === 'Август 2024' && day === 4}
+                        onClick={() =>
+                          setSelectedPeriod(`${day} ${month.name.toLowerCase()}`)
+                        }
                       >
                         {day}
                       </Day>
@@ -141,7 +144,11 @@ export default function Calendar() {
                     (item.year === 2025 && index <= 4)
 
                   return (
-                    <MonthButton key={month} $selected={selected}>
+                    <MonthButton
+                      key={month}
+                      $selected={selected}
+                      onClick={() => setSelectedPeriod(`${month} ${item.year}`)}
+                    >
                       {month}
                     </MonthButton>
                   )

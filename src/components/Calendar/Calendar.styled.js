@@ -133,9 +133,12 @@ export const DaysGrid = styled.div`
     gap: 4px;
   }
 `
-export const Day = styled.div`
+export const Day = styled.button`
   width: 40px;
   height: 40px;
+  padding: 0;
+  border: 0;
+  font: inherit;
 
   display: flex;
   align-items: center;
@@ -158,6 +161,11 @@ export const Day = styled.div`
     cursor: pointer;
     color: ${theme.colors.chart.greenText};
     background-color: ${theme.colors.chart.greenSurface};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.chart.greenText};
+    outline-offset: 2px;
   }
 
   @media (max-width: 768px) {

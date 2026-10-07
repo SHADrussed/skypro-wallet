@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Analytics from '../components/Analytics/Analytics'
 import Calendar from '../components/Calendar/Calendar'
@@ -54,6 +54,8 @@ const ConfirmButton = styled.button`
 `
 
 export default function AnalyticsPeriodPage() {
+  const navigate = useNavigate()
+
   return (
     <>
       <DesktopPeriod>
@@ -64,7 +66,9 @@ export default function AnalyticsPeriodPage() {
         <BackLink to="/analytics">← Анализ расходов</BackLink>
         <PeriodTitle>Выбор периода</PeriodTitle>
         <Calendar />
-        <ConfirmButton type="button">Выбрать период</ConfirmButton>
+        <ConfirmButton type="button" onClick={() => navigate('/analytics')}>
+          Выбрать период
+        </ConfirmButton>
       </MobilePeriod>
     </>
   )

@@ -12,6 +12,7 @@ import {
   PeriodBlock,
   TotalAmount,
 } from './Graphs.styled'
+import { useAnalytics } from '../../context/AnalyticsContext'
 
 const expenses = [
   { name: 'Еда', amount: 3590, color: 'purple' },
@@ -25,13 +26,15 @@ const expenses = [
 const maxAmount = Math.max(...expenses.map((item) => item.amount))
 
 export default function Graphs() {
+  const { selectedPeriod } = useAnalytics()
+
   return (
     <GraphsStyled>
       <AnalyticsHeader>
         <TotalAmount>9 581 ₽</TotalAmount>
         <PeriodBlock>
           <span>Расходы за</span>
-          <Period>10 июля 2024</Period>
+          <Period>{selectedPeriod}</Period>
         </PeriodBlock>
       </AnalyticsHeader>
       <GraphContent>
