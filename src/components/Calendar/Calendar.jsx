@@ -68,11 +68,11 @@ const years = [
   },
 ]
 export default function Calendar({ mobileTitle }) {
-  const { periodMode, setPeriodMode, setSelectedPeriod } = useAnalytics()
+  const { periodMode, setPeriodMode, updateDraftPeriod } = useAnalytics()
 
   return (
     <CalendarCard>
-      <CalendarHeader>
+      <CalendarHeader $periodMode={periodMode}>
         <CalendarHeaderTitle $mobileTitle={Boolean(mobileTitle)}>
           {mobileTitle || 'Период'}
         </CalendarHeaderTitle>
@@ -100,7 +100,7 @@ export default function Calendar({ mobileTitle }) {
               <Weekday key={day}>{day}</Weekday>
             ))}
           </Weekdays>
-          <CalendarFooter>
+          <CalendarFooter $periodMode={periodMode}>
             {months.map((month) => (
               <MonthWrapper key={month.name}>
                 <MonthTitle>{month.name}</MonthTitle>
@@ -121,7 +121,7 @@ export default function Calendar({ mobileTitle }) {
                         $rangeStart={month.name === 'Июль 2024' && day === 29}
                         $rangeEnd={month.name === 'Август 2024' && day === 4}
                         onClick={() =>
-                          setSelectedPeriod(`${day} ${month.name.toLowerCase()}`)
+                          updateDraftPeriod(`${day} ${month.name.toLowerCase()}`)
                         }
                       >
                         {day}
@@ -134,7 +134,7 @@ export default function Calendar({ mobileTitle }) {
           </CalendarFooter>
         </>
       ) : (
-        <CalendarFooter>
+        <CalendarFooter $periodMode={periodMode}>
           {years.map((item) => (
             <YearBlock key={item.year}>
               <YearTitle>{item.year}</YearTitle>
@@ -149,7 +149,7 @@ export default function Calendar({ mobileTitle }) {
                     <MonthButton
                       key={month}
                       $selected={selected}
-                      onClick={() => setSelectedPeriod(`${month} ${item.year}`)}
+                      onClick={() => updateDraftPeriod(`${month} ${item.year}`)}
                     >
                       {month}
                     </MonthButton>

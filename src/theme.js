@@ -19,6 +19,7 @@ const theme = {
       green: '#B6E8A5',
       greenSurface: 'rgba(219, 255, 233, 1)',
       greenText: 'rgba(31, 164, 108, 1)',
+      lime: '#A6CE39',
       red: '#FFB8B8',
     },
   },

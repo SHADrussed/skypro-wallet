@@ -15,31 +15,35 @@ import {
 import { useAnalytics } from '../../context/AnalyticsContext'
 
 const expenses = [
-  { name: 'Еда', amount: 3590, color: 'purple' },
-  { name: 'Транспорт', amount: 1835, color: 'orange' },
-  { name: 'Жилье', amount: 0, color: 'blue' },
-  { name: 'Развлечения', amount: 1250, color: 'violet' },
-  { name: 'Образование', amount: 600, color: 'green' },
-  { name: 'Другое', amount: 2306, color: 'red' },
+  { name: 'Еда', color: 'purple' },
+  { name: 'Транспорт', color: 'orange' },
+  { name: 'Жилье', color: 'blue' },
+  { name: 'Развлечения', color: 'violet' },
+  { name: 'Образование', color: 'lime' },
+  { name: 'Другое', color: 'red' },
 ]
 
-const maxAmount = Math.max(...expenses.map((item) => item.amount))
-
 export default function Graphs() {
-  const { selectedPeriod } = useAnalytics()
+  const { appliedPeriod } = useAnalytics()
+  const chartItems = expenses.map((item, index) => ({
+    ...item,
+    amount: appliedPeriod.values[index],
+  }))
+  const maxAmount = Math.max(...chartItems.map((item) => item.amount))
+  const formattedTotal = appliedPeriod.total.toLocaleString('ru-RU')
 
   return (
     <GraphsStyled>
       <AnalyticsHeader>
-        <TotalAmount>9 581 ₽</TotalAmount>
+        <TotalAmount>{formattedTotal} ₽</TotalAmount>
         <PeriodBlock>
           <span>Расходы за</span>
-          <Period>{selectedPeriod}</Period>
+          <Period>{appliedPeriod.label}</Period>
         </PeriodBlock>
       </AnalyticsHeader>
       <GraphContent>
         <Chart>
-          {expenses.map((item) => {
+          {chartItems.map((item) => {
             const height = (item.amount / maxAmount) * 100
 
             return (

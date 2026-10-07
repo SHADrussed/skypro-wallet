@@ -5,6 +5,7 @@ import {
   AnalyticsBlock,
   CalendarSection,
   Page,
+  PeriodActionArea,
   PeriodLink,
   Title,
 } from './Analytics.styled'
@@ -21,9 +22,11 @@ export default function Analytics({ showCalendar = true }) {
         )}
         <Graphs />
       </AnalyticsBlock>
-      <PeriodLink as={Link} to="/analytics/period">
-        Выбрать другой период
-      </PeriodLink>
+      <PeriodActionArea>
+        <PeriodLink as={Link} to="/analytics/period">
+          Выбрать другой период
+        </PeriodLink>
+      </PeriodActionArea>
     </Page>
   )
 }

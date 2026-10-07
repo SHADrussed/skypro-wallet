@@ -2,24 +2,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Analytics from '../components/Analytics/Analytics'
 import Calendar from '../components/Calendar/Calendar'
-import { HeaderS } from '../components/Header/Header.styled'
 import Header from '../components/Header/Header'
 import theme from '../theme'
+import { useAnalytics } from '../context/AnalyticsContext'
 
 const MobilePeriod = styled.main`
   display: none;
 
   @media (max-width: 768px) {
-    display: block;
-    box-sizing: border-box;
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
+    height: 100svh;
     min-height: 100svh;
-    padding: 16px 16px 24px;
-
-    ${HeaderS} {
-      display: none;
-    }
+    padding: 0;
+    overflow: hidden;
   }
 `
 
@@ -39,11 +36,29 @@ const BackLink = styled(Link)`
   text-decoration: none;
 `
 
+const MobilePeriodContent = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 8px 16px 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+const PeriodActionArea = styled.div`
+  margin-top: auto;
+  padding: 24px 16px;
+  background: ${theme.colors.background};
+`
+
 const ConfirmButton = styled.button`
   width: 100%;
   min-height: 52px;
-  margin-top: auto;
-  flex-shrink: 0;
   border: 0;
   border-radius: 8px;
   background: ${theme.colors.chart.greenText};
@@ -54,6 +69,12 @@ const ConfirmButton = styled.button`
 
 export default function AnalyticsPeriodPage() {
   const navigate = useNavigate()
+  const { applyDraftPeriod } = useAnalytics()
+
+  const handleConfirmPeriod = () => {
+    applyDraftPeriod()
+    navigate('/analytics')
+  }
 
   return (
     <>
@@ -62,11 +83,16 @@ export default function AnalyticsPeriodPage() {
         <Analytics />
       </DesktopPeriod>
       <MobilePeriod>
-        <BackLink to="/analytics">← Анализ расходов</BackLink>
-        <Calendar mobileTitle="Выбор периода" />
-        <ConfirmButton type="button" onClick={() => navigate('/analytics')}>
-          Выбрать период
-        </ConfirmButton>
+        <Header isSpendingTablePage={false} />
+        <MobilePeriodContent>
+          <BackLink to="/analytics">← Анализ расходов</BackLink>
+          <Calendar mobileTitle="Выбор периода" />
+        </MobilePeriodContent>
+        <PeriodActionArea>
+          <ConfirmButton type="button" onClick={handleConfirmPeriod}>
+            Выбрать период
+          </ConfirmButton>
+        </PeriodActionArea>
       </MobilePeriod>
     </>
   )

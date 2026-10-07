@@ -25,7 +25,9 @@ export const CalendarHeader = styled.div`
   @media (max-width: 768px) {
     align-items: center;
     justify-content: space-between;
-    padding: 0;
+    padding: 0 0 ${({ $periodMode }) => ($periodMode === 'year' ? '12px' : '0')};
+    border-bottom: ${({ $periodMode }) =>
+      $periodMode === 'year' ? `1px solid ${theme.colors.background}` : 'none'};
   }
 `
 export const CalendarHeaderTitle = styled(Title)`
@@ -58,8 +60,9 @@ export const PeriodVariant = styled.button`
   background: transparent;
   font-family: inherit;
   font-size: inherit;
-  color: ${({ $active }) => ($active ? theme.colors.chart.green : theme.colors.text)};
-  border-bottom: ${({ $active }) => ($active ? `1px solid ${theme.colors.chart.green}` : 'none')};
+  color: ${({ $active }) => ($active ? theme.colors.chart.greenText : theme.colors.text)};
+  border-bottom: ${({ $active }) =>
+    $active ? `1px solid ${theme.colors.chart.greenText}` : 'none'};
   cursor: pointer;
 `
 
@@ -115,7 +118,7 @@ export const CalendarFooter = styled.div`
   @media (max-width: 768px) {
     max-height: none;
     flex: 1;
-    padding: 16px 0 0;
+    padding: ${({ $periodMode }) => ($periodMode === 'year' ? '20px 0 0' : '16px 0 0')};
     overflow: visible;
   }
 `
