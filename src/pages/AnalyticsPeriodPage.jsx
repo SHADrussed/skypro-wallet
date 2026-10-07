@@ -11,8 +11,11 @@ const MobilePeriod = styled.main`
 
   @media (max-width: 768px) {
     display: block;
-    min-height: calc(100vh - 56px);
-    padding: 8px 16px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    padding: 16px 16px 24px;
 
     ${HeaderS} {
       display: none;
@@ -30,24 +33,20 @@ const DesktopPeriod = styled.div`
 
 const BackLink = styled(Link)`
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   color: ${theme.colors.textSecondary};
   font-size: 14px;
   text-decoration: none;
 `
 
-const PeriodTitle = styled.h1`
-  margin: 0 0 24px;
-  font-size: 24px;
-`
-
 const ConfirmButton = styled.button`
   width: 100%;
   min-height: 52px;
-  margin-top: 24px;
+  margin-top: auto;
+  flex-shrink: 0;
   border: 0;
   border-radius: 8px;
-  background: ${theme.colors.primary};
+  background: ${theme.colors.chart.greenText};
   color: ${theme.colors.primaryText};
   font: inherit;
   font-weight: ${theme.typography.fontWeight.semibold};
@@ -64,8 +63,7 @@ export default function AnalyticsPeriodPage() {
       </DesktopPeriod>
       <MobilePeriod>
         <BackLink to="/analytics">← Анализ расходов</BackLink>
-        <PeriodTitle>Выбор периода</PeriodTitle>
-        <Calendar />
+        <Calendar mobileTitle="Выбор периода" />
         <ConfirmButton type="button" onClick={() => navigate('/analytics')}>
           Выбрать период
         </ConfirmButton>

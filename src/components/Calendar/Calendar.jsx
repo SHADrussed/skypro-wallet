@@ -67,13 +67,15 @@ const years = [
     ],
   },
 ]
-export default function Calendar() {
+export default function Calendar({ mobileTitle }) {
   const { periodMode, setPeriodMode, setSelectedPeriod } = useAnalytics()
 
   return (
     <CalendarCard>
       <CalendarHeader>
-        <CalendarHeaderTitle>Период</CalendarHeaderTitle>
+        <CalendarHeaderTitle $mobileTitle={Boolean(mobileTitle)}>
+          {mobileTitle || 'Период'}
+        </CalendarHeaderTitle>
 
         <CalendarHeaderPeriods>
           <PeriodVariant

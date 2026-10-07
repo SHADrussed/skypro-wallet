@@ -9,6 +9,9 @@ export const CalendarCard = styled.div`
   height: inherit;
 
   @media (max-width: 768px) {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     height: auto;
     border-radius: 0;
     background: transparent;
@@ -21,6 +24,7 @@ export const CalendarHeader = styled.div`
 
   @media (max-width: 768px) {
     align-items: center;
+    justify-content: space-between;
     padding: 0;
   }
 `
@@ -28,7 +32,9 @@ export const CalendarHeaderTitle = styled(Title)`
   margin-bottom: ${theme.spacing.xl};
 
   @media (max-width: 768px) {
-    margin-bottom: 16px;
+    display: ${({ $mobileTitle }) => ($mobileTitle ? 'block' : 'none')};
+    margin-bottom: 0;
+    font-size: 24px;
   }
 `
 
@@ -108,6 +114,7 @@ export const CalendarFooter = styled.div`
 
   @media (max-width: 768px) {
     max-height: none;
+    flex: 1;
     padding: 16px 0 0;
     overflow: visible;
   }

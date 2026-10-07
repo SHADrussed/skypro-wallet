@@ -15,6 +15,8 @@ export const GraphsStyled = styled.div`
   padding: ${theme.spacing.xxl};
 
   @media (max-width: 768px) {
+    flex: 1;
+    justify-content: flex-start;
     height: auto;
     min-width: 0;
     padding: 0;
@@ -157,7 +159,8 @@ export const Bar = styled.div`
 
   background-color: ${({ $color }) => theme.colors.chart[$color]};
   @media (max-width: 768px) {
-    max-width: 30px;
+    max-width: none;
+    width: 100%;
     border-radius: 8px;
   }
 `

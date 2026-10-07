@@ -8,8 +8,12 @@ export const Page = styled.div`
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
-    padding: 24px 16px;
-    min-height: calc(100vh - 56px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px 16px;
+    min-height: calc(100svh - 56px);
+    background: ${theme.colors.surface};
   }
 `
 
@@ -17,7 +21,8 @@ export const Title = styled.h1`
   margin-bottom: ${theme.spacing.xxl};
 
   @media (max-width: 768px) {
-    display: none;
+    margin-bottom: 24px;
+    font-size: 24px;
   }
 `
 
@@ -28,8 +33,11 @@ export const AnalyticsBlock = styled.div`
   gap: ${theme.spacing.xxl};
 
   @media (max-width: 768px) {
-    display: block;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     height: auto;
+    min-height: 0;
   }
 `
 
@@ -52,9 +60,11 @@ export const PeriodLink = styled.a`
     justify-content: center;
     margin-top: 24px;
     border-radius: 8px;
-    background: ${theme.colors.primary};
+    margin-bottom: 0;
+    background: ${theme.colors.chart.greenText};
     color: ${theme.colors.primaryText};
     font-weight: ${theme.typography.fontWeight.semibold};
     text-decoration: none;
+    flex-shrink: 0;
   }
 `
