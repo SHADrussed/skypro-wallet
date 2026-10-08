@@ -6,6 +6,11 @@ export const HeaderS = styled.header`
   padding: 20px 120px;
   flex-direction: row;
   justify-content: space-between;
+  background-color: ${theme.colors.surface};
+  @media screen and (max-width: 375px) {
+    padding: 20px 16px;
+    background-color: ${theme.colors.background};
+  }
 `
 
 export const NavBar = styled.nav`
@@ -26,10 +31,17 @@ export const NavLink = styled.a`
     $active ? theme.colors.primary : theme.colors.text};
 `
 
-export const Exit = styled.a`
+export const ExitButton = styled.button`
+  border: none;
+  background-color: #fff;
   font-weight: ${theme.typography.fontWeight.semibold};
   font-size: ${theme.typography.fontSize.body};
   line-height: ${theme.typography.lineHeight.body};
-  text-decoration: none;
-  color: ${theme.colors.text};
+  & a {
+    color: ${theme.colors.text};
+    text-decoration: none;
+  }
+  & a:hover {
+    color: ${theme.colors.primary};
+  }
 `
