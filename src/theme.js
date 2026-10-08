@@ -7,10 +7,10 @@ const theme = {
     border: '#999999',
     primary: '#7334EA',
     primaryText: '#FFFFFF',
-    inputFocus: '#EBDDFF',
+    inputFocus: '#F1EBFD',
     errorBackground: '#FFE8E8',
-    errorBorder: '#FFBABA',
-    errorText: '#E34B4B',
+    errorBorder: '#F25050',
+    errorText: '#F84D4D',
     chart: {
       violet: '#A7A5FF',
       purple: '#D9B8FF',

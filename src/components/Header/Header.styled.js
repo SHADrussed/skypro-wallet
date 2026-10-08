@@ -8,7 +8,10 @@ export const HeaderS = styled.header`
   align-items: center;
 
   padding: 20px 120px;
-
+  background-color: ${theme.colors.surface};
+  @media screen and (max-width: 375px) {
+    padding: 20px 16px;
+    background-color: ${theme.colors.background};
   @media (max-width: 768px) {
     grid-template-columns: 1fr auto 1fr;
     padding: 16px;
