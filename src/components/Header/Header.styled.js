@@ -12,6 +12,7 @@ export const HeaderS = styled.header`
   @media screen and (max-width: 375px) {
     padding: 20px 16px;
     background-color: ${theme.colors.background};
+  }
   @media (max-width: 768px) {
     grid-template-columns: 1fr auto 1fr;
     padding: 16px;
@@ -82,6 +83,7 @@ export const Exit = styled.a`
   line-height: ${theme.typography.lineHeight.body};
   text-decoration: none;
   color: ${theme.colors.text};
+  cursor: pointer;
 
   @media (max-width: 768px) {
     font-size: 12px;
