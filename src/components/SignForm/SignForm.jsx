@@ -17,71 +17,71 @@ import { useState } from 'react'
 
 const SignForm = ({ isLogin = false }) => {
   const { login } = useAuth()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-    name: "",
-    login: "",
-    password: "",
-  });
+    name: '',
+    login: '',
+    password: '',
+  })
 
   const [errors, setErrors] = useState({
-    name: "",
-    login: "",
-    password: "",
-  });
+    name: '',
+    login: '',
+    password: '',
+  })
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState('')
 
   const validateForm = () => {
-    const newErrors = { name: "", login: "", password: "" };
-    let isValid = true;
+    const newErrors = { name: '', login: '', password: '' }
+    let isValid = true
 
     if (!isLogin && !formData.name.trim()) {
-      newErrors.name = true;
-      setError("Заполните все поля");
-      isValid = false;
+      newErrors.name = true
+      setError('Заполните все поля')
+      isValid = false
     }
 
     if (!formData.login.trim()) {
-      newErrors.login = true;
-      setError("Заполните все поля");
-      isValid = false;
+      newErrors.login = true
+      setError('Заполните все поля')
+      isValid = false
     }
 
     if (!formData.password.trim()) {
-      newErrors.password = true;
-      setError("Заполните все поля");
-      isValid = false;
+      newErrors.password = true
+      setError('Заполните все поля')
+      isValid = false
     }
 
-    setErrors(newErrors);
-    return isValid;
-  };
+    setErrors(newErrors)
+    return isValid
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-    setErrors({ ...errors, [name]: false });
-    setError("");
-  };
+    })
+    setErrors({ ...errors, [name]: false })
+    setError('')
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!validateForm()) {
-      return;
+      return
     }
     try {
-      login();
-      navigate("/");
+      login()
+      navigate('/')
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     }
-  };
-  
+  }
+
   return (
     <div>
       <Header />
@@ -119,16 +119,19 @@ const SignForm = ({ isLogin = false }) => {
               onChange={handleChange}
             />
             {error && <ErrorText>{error}</ErrorText>}
-            {!error ? <FormButton type="submit">
-              {isLogin ? "Войти" : "Зарегистрироваться"}
-            </FormButton> : 
-            <DisabledButton>
-              {isLogin ? "Войти" : "Зарегистрироваться"}
-            </DisabledButton>}
+            {!error ? (
+              <FormButton type="submit">
+                {isLogin ? 'Войти' : 'Зарегистрироваться'}
+              </FormButton>
+            ) : (
+              <DisabledButton disabled={true}>
+                {isLogin ? 'Войти' : 'Зарегистрироваться'}
+              </DisabledButton>
+            )}
             <FormDescription>
-              {isLogin ? "Нужно зарегистрироваться?" : "Уже есть аккаунт?"}{" "}
-              <FormLink as={Link} to={isLogin ? "/register" : "/login"}>
-                {isLogin ? "Регистрируйтесь здесь" : "Войдите здесь"}
+              {isLogin ? 'Нужно зарегистрироваться?' : 'Уже есть аккаунт?'}{' '}
+              <FormLink as={Link} to={isLogin ? '/register' : '/login'}>
+                {isLogin ? 'Регистрируйтесь здесь' : 'Войдите здесь'}
               </FormLink>
             </FormDescription>
           </Form>
