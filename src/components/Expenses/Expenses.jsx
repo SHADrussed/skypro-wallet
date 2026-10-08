@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Transaction from '../Transaction/Transaction'
 import {
   SpendingTable,
@@ -6,46 +7,25 @@ import {
   Title,
   TableHeaderP,
   TableHeaderPRight,
+  DeletionForm,
+  DeleteButton,
 } from './Expenses.styled'
 
-const Expenses = () => {
-  const transactions = [
-    {
-      _id: '67e4688c8d573f845a6083f3',
-      userId: '67e2cba0d743f2b960865bcb',
-      description: 'Игры Steam',
-      category: 'joy',
-      date: '2025-12-11T21:00:00.000Z',
-      sum: 1,
-    },
-    {
-      _id: '67e46c604d573f845a6083f4',
-      userId: '67e2cba0d743f2b960865bcb',
-      description: 'Аквапарк',
-      category: 'joy',
-      date: '2025-12-11T21:00:00.000Z',
-      sum: 1,
-    },
-    {
-      _id: '67e4688c8d573f245a6083f3',
-      userId: '67e2cba0d743f2b960865bcb',
-      description: 'Игры Steam',
-      category: 'joy',
-      date: '2025-12-11T21:00:00.000Z',
-      sum: 1,
-    },
-    {
-      _id: '67e46c608d573f845a6083f4',
-      userId: '67e2cba0d743f2b960865bcb',
-      description: 'Аквапарк',
-      category: 'joy',
-      date: '2025-12-11T21:00:00.000Z',
-      sum: 1,
-    },
-  ]
+const Expenses = ({ transactions = [], onDelete, $hiddenMobile }) => {
+  const [selectedIds, setSelectedIds] = useState([])
+
+  const toggleSelect = (id) => {
+    $hiddenMobile && setSelectedIds(id)
+  }
+
+  const handleDelete = () => {
+    if (selectedIds.length === 0) return
+    onDelete?.(selectedIds)
+    setSelectedIds([])
+  }
 
   return (
-    <SpendingTable>
+    <SpendingTable $hiddenMobile={$hiddenMobile}>
       <Title>Таблица расходов</Title>
 
       <TableHeader>
@@ -56,14 +36,25 @@ const Expenses = () => {
         <span />
       </TableHeader>
 
-      <TableBody>
-        {transactions.map((transaction) => (
-          <Transaction
-            key={transaction.id ?? transaction._id}
-            {...transaction}
-          />
-        ))}
+      <TableBody $hasBar={selectedIds.length > 0}>
+        {transactions.map((transaction) => {
+          const id = transaction.id ?? transaction._id
+          return (
+            <Transaction
+              key={id}
+              {...transaction}
+              isSelected={selectedIds.includes(id)}
+              onSelect={() => toggleSelect(id)}
+            />
+          )
+        })}
       </TableBody>
+
+      <DeletionForm $visible={selectedIds.length > 0}>
+        <DeleteButton type="button" onClick={handleDelete}>
+          Удалить расход
+        </DeleteButton>
+      </DeletionForm>
     </SpendingTable>
   )
 }

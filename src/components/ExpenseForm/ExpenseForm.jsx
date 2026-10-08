@@ -9,6 +9,7 @@ import {
   CategoryName,
   SubmitButton,
   DisabledButton,
+  SubmitBar,
 } from './ExpenseForm.styled'
 import BaseInput from '../SignForm/BaseInput'
 import CategoriesSVG from './CategoriesSVG'
@@ -17,32 +18,27 @@ const categories = [
   { id: 'food', name: 'Еда' },
   { id: 'transport', name: 'Транспорт' },
   { id: 'housing', name: 'Жилье' },
-  { id: 'entertainment', name: 'Развлечения' },
+  { id: 'joy', name: 'Развлечения' },
   { id: 'education', name: 'Образование' },
-  { id: 'other', name: 'Другое' },
+  { id: 'others', name: 'Другое' },
 ]
 
-const ExpenseForm = () => {
-  const [formData, setFormData] = useState({
-    description: '',
-    category: '',
-    date: '',
-    amount: '',
-  })
+const emptyForm = { description: '', category: '', date: '', amount: '' }
+const emptyErrors = {
+  description: false,
+  category: false,
+  date: false,
+  amount: false,
+}
 
-  const [errors, setErrors] = useState({
-    description: '',
-    category: '',
-    date: '',
-    amount: '',
-  })
-
+const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
+  const [formData, setFormData] = useState(emptyForm)
+  const [errors, setErrors] = useState(emptyErrors)
   const [error, setError] = useState('')
-
   const [selectedCategory, setSelectedCategory] = useState('')
 
   const validateForm = () => {
-    const newErrors = { description: '', category: '', date: '', amount: '' }
+    const newErrors = { ...emptyErrors }
     let isValid = true
 
     if (!formData.description.trim()) {
@@ -62,12 +58,12 @@ const ExpenseForm = () => {
       setError('Заполните все поля')
       isValid = false
     }
-    if (!formData.amount.trim()) {
+
+    if (!String(formData.amount).trim()) {
       newErrors.amount = true
       setError('Заполните все поля')
       isValid = false
-    }
-    if (formData.amount <= 0) {
+    } else if (Number(formData.amount) <= 0) {
       newErrors.amount = true
       setError('Сумма не может быть меньше или равна нулю')
       isValid = false
@@ -91,6 +87,7 @@ const ExpenseForm = () => {
     setSelectedCategory(categoryId)
     setFormData((prev) => ({ ...prev, category: categoryId }))
     setErrors({ ...errors, category: false })
+    setError('')
   }
 
   const handleSubmit = (e) => {
@@ -98,11 +95,15 @@ const ExpenseForm = () => {
     if (!validateForm()) {
       return
     }
-    console.log('Form submitted:', formData)
+    onAdd?.(formData)
+    setFormData(emptyForm)
+    setSelectedCategory('')
+    setErrors(emptyErrors)
+    setError('')
   }
 
   return (
-    <FormS onSubmit={handleSubmit}>
+    <FormS onSubmit={handleSubmit} $hiddenMobile={$hiddenMobile}>
       <FormTitle>Новый расход</FormTitle>
 
       <FieldGroup>
@@ -162,11 +163,16 @@ const ExpenseForm = () => {
           onChange={handleChange}
         />
       </FieldGroup>
-      {!error ? (
-        <SubmitButton type="submit">Добавить новый расход</SubmitButton>
-      ) : (
-        <DisabledButton disabled={true}>Добавить новый расход</DisabledButton>
-      )}
+
+      <SubmitBar>
+        {!error ? (
+          <SubmitButton type="submit">Добавить новый расход</SubmitButton>
+        ) : (
+          <DisabledButton type="button" disabled={true}>
+            Добавить новый расход
+          </DisabledButton>
+        )}
+      </SubmitBar>
     </FormS>
   )
 }

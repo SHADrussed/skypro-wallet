@@ -5,9 +5,9 @@ const CategoriesSVG = ({ category, isActive }) => {
     food: <FoodCategory isActive={isActive} />,
     transport: <TransportCategory isActive={isActive} />,
     housing: <HousingCategory isActive={isActive} />,
-    entertainment: <JoyCategory isActive={isActive} />,
+    joy: <JoyCategory isActive={isActive} />,
     education: <EducationCategory isActive={isActive} />,
-    other: <OthersCategory isActive={isActive} />,
+    others: <OthersCategory isActive={isActive} />,
   }
 
   return categories[category]

@@ -3,34 +3,38 @@ import theme from '../../theme'
 
 export const Container = styled.div`
   display: grid;
-
-  /*
-   * 4 основные колонки:
-   * описание
-   * категория
-   * дата
-   * сумма
-   *
-   * последняя колонка — кнопка удаления
-   */
   grid-template-columns: 1fr 1fr 1fr 1fr 32px;
-
   align-items: center;
   column-gap: 0;
   height: 15px;
+
+  @media (max-width: 768px) {
+    /* 4 колонки по ~74px с зазором 16px, как в макете (343px) */
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 16px;
+    /* выделенная строка: 24px высотой на всю ширину экрана */
+    padding: 6px 16px;
+    background-color: ${({ $selected }) =>
+      $selected ? theme.colors.inputFocus : 'transparent'};
+  }
 `
 
 export const TransactionValue = styled.p`
   font-size: ${theme.typography.fontSize.caption};
   font-weight: ${theme.typography.fontWeight.regular};
-  color: ${theme.colors.text};
-  @media screen and (max-width: 375px) {
+  color: ${({ $selected }) => ($selected ? theme.colors.primary : theme.colors.text)};
+
+  @media (max-width: 768px) {
     font-size: 10px;
+    line-height: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
 
 export const TransactionValueRight = styled(TransactionValue)`
-  @media screen and (max-width: 375px) {
+  @media (max-width: 768px) {
     text-align: right;
   }
 `
@@ -38,7 +42,8 @@ export const TransactionValueRight = styled(TransactionValue)`
 export const TransactionDelete = styled.img`
   display: block;
   cursor: pointer;
-  @media screen and (max-width: 375px) {
+
+  @media (max-width: 768px) {
     display: none;
   }
 `

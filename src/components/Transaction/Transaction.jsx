@@ -5,30 +5,42 @@ import {
   TransactionDelete,
 } from './Transaction.styled'
 
-const Transaction = ({ _id, description, category, date, sum }) => {
-  const formated_date = new Date(date)
+const categories = {
+  joy: 'Развлечения',
+  housing: 'Жилье',
+  transport: 'Транспорт',
+  food: 'Еда',
+  education: 'Образование',
+  others: 'Другое',
+}
 
-  const [month, day, year] = [
-    formated_date.getMonth(),
-    formated_date.getDay(),
-    formated_date.getFullYear(),
-  ]
+const formatDate = (value) => {
+  const d = new Date(value)
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  return `${day}.${month}.${d.getFullYear()}`
+}
 
-  const categories = {
-    joy: 'Развлечение',
-    housing: 'Жилье',
-    transport: 'Транспорт',
-    food: 'Еда',
-    education: 'Образование',
-    others: 'Другое',
-  }
-
+const Transaction = ({
+  description,
+  category,
+  date,
+  sum,
+  isSelected = false,
+  onSelect,
+}) => {
   return (
-    <Container>
-      <TransactionValue>{description}</TransactionValue>
-      <TransactionValue>{categories[category]}</TransactionValue>
-      <TransactionValueRight>{`${day}.${month}.${year}`}</TransactionValueRight>
-      <TransactionValueRight>{sum} ₽</TransactionValueRight>
+    <Container $selected={isSelected} onClick={onSelect}>
+      <TransactionValue $selected={isSelected}>{description}</TransactionValue>
+      <TransactionValue $selected={isSelected}>
+        {categories[category]}
+      </TransactionValue>
+      <TransactionValueRight $selected={isSelected}>
+        {formatDate(date)}
+      </TransactionValueRight>
+      <TransactionValueRight $selected={isSelected}>
+        {sum} ₽
+      </TransactionValueRight>
       <TransactionDelete src="/bag.svg" alt="Удалить" />
     </Container>
   )
