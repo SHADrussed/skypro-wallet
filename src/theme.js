@@ -12,10 +12,14 @@ const theme = {
     errorBorder: '#F25050',
     errorText: '#F84D4D',
     chart: {
+      violet: '#A7A5FF',
       purple: '#D9B8FF',
       orange: '#FFB543',
       blue: '#B9D0FF',
       green: '#B6E8A5',
+      greenSurface: 'rgba(219, 255, 233, 1)',
+      greenText: 'rgba(31, 164, 108, 1)',
+      lime: '#A6CE39',
       red: '#FFB8B8',
     },
   },
@@ -31,6 +35,7 @@ const theme = {
     fontSize: {
       caption: '12px',
       body: '14px',
+      month: '16px',
       title: '24px',
     },
     lineHeight: {

@@ -1,31 +1,27 @@
 import { Link } from 'react-router-dom'
-import { ExitButton, HeaderS, NavBar, NavLink } from './Header.styled'
+import { Exit, HeaderS, Logo, NavBar, NavLink } from './Header.styled'
 import { useAuth } from '../../context/ContextProvider'
 
-const Header = () => {
+const Header = ({ isSpendingTablePage }) => {
   const { isAuth, logout } = useAuth()
   return (
     <HeaderS>
-      <img src="/logo.svg" alt="" />
+      <Logo src="/logo.svg" alt="Skypro Wallet" />
 
       {isAuth && (
         <NavBar>
-          <NavLink href="" $active={true}>
+          <NavLink to="/" $active={isSpendingTablePage} $isSpending={true}>
             Мои расходы
           </NavLink>
 
-          <NavLink href="" $active={false}>
+          <NavLink to="/analytics" $active={!isSpendingTablePage}>
             Анализ расходов
           </NavLink>
         </NavBar>
       )}
 
       {isAuth && (
-        <ExitButton>
-          <Link onClick={logout}>
-            Выход
-          </Link>
-        </ExitButton>
+        <Exit onClick={logout}>Выход</Exit>
       )}
     </HeaderS>
   )
