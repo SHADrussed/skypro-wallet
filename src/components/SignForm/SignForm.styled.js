@@ -47,6 +47,7 @@ export const Form = styled.form`
 
 export const FormInput = styled.input`
   width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   background-color: ${({ $error, $value }) => ($error ? `${theme.colors.errorBackground}` : `${$value ? `${theme.colors.inputFocus}` : `${theme.colors.surface}`}`)};
   border: 0.5px solid
@@ -58,6 +59,43 @@ export const FormInput = styled.input`
   &::placeholder {
     color: ${theme.colors.textSecondary};
   }
+`
+
+export const AuthInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`
+
+export const AuthInput = styled(FormInput)`
+  padding-right: ${({ $error }) => ($error ? '28px' : '12px')};
+
+  &::placeholder {
+    color: transparent;
+  }
+`
+
+export const InputPlaceholder = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  display: flex;
+  gap: 3px;
+  transform: translateY(-50%);
+  color: ${theme.colors.textSecondary};
+  pointer-events: none;
+
+  & span {
+    color: ${theme.colors.errorText};
+  }
+`
+
+export const InputErrorMarker = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: ${theme.colors.errorText};
+  pointer-events: none;
 `
 
 export const FormButton = styled.button`

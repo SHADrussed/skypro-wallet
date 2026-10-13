@@ -1,26 +1,45 @@
-import { FormInput } from "./SignForm.styled";
+import {
+  AuthInput,
+  AuthInputWrapper,
+  InputErrorMarker,
+  InputPlaceholder,
+} from './SignForm.styled'
 
 const BaseInput = ({
-   id,
-   name,
-   placeholder = "",
-   type = "text",
-   error = false,
-   value = "",
-   onChange,
-
+  id,
+  name,
+  placeholder = '',
+  type = 'text',
+  error = false,
+  value = '',
+  min,
+  onChange,
 }) => {
-   return (
-      <FormInput
-         id={id}
-         name={name}
-         type={type}
-         placeholder={placeholder}
-         $value={value}
-         $error={error}
-         onChange={onChange}
+  return (
+    <AuthInputWrapper>
+      <AuthInput
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        min={min}
+        $value={value}
+        $error={error}
+        aria-invalid={Boolean(error)}
+        onChange={onChange}
       />
-   );
-};
+      {!value && placeholder && (
+        <InputPlaceholder aria-hidden="true">
+          {placeholder}
+          {error && <span>*</span>}
+        </InputPlaceholder>
+      )}
+      {value && error && (
+        <InputErrorMarker aria-hidden="true">*</InputErrorMarker>
+      )}
+    </AuthInputWrapper>
+  )
+}
 
-export default BaseInput;
+export default BaseInput

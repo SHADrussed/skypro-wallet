@@ -4,6 +4,7 @@ import theme from '../../theme'
 export const FormS = styled.form`
   grid-column: span 4;
   height: 618px;
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
@@ -52,9 +53,24 @@ export const FieldLabel = styled.label`
   font-size: ${theme.typography.fontSize.month};
   font-weight: ${theme.typography.fontWeight.semibold};
   color: ${theme.colors.text};
-
   & span {
     color: ${theme.colors.errorText};
+  }
+`
+
+export const ExpenseInput = styled.input`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  background-color: ${({ $error, $value }) => ($error ? `${theme.colors.errorBackground}` : `${$value ? `${theme.colors.inputFocus}` : `${theme.colors.surface}`}`)};
+  border: 0.5px solid
+    ${({ $error, $value }) => ($error ? `${theme.colors.errorBorder}` : `${$value ? `${theme.colors.primary}` : `${theme.colors.border}`}`)};
+  border-radius: ${theme.radii.control};
+  outline: none;
+  font: inherit;
+
+  &::placeholder {
+    color: ${theme.colors.textSecondary};
   }
 `
 
@@ -105,22 +121,6 @@ export const SubmitButton = styled.button`
   &:hover {
     background-color: #33399b;
     cursor: pointer;
-  }
-`
-
-/* Десктоп: кнопка внизу формы. Мобильный: панель 87px, прижатая к низу экрана */
-export const SubmitBar = styled.div`
-  margin-top: auto;
-
-  @media (max-width: 768px) {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 24px 16px;
-    background: ${theme.colors.surface};
-    box-shadow: 0 -20px 67px -12px rgba(0, 0, 0, 0.13);
   }
 `
 
