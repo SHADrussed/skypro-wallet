@@ -7,11 +7,10 @@ import {
   CategoryGrid,
   CategoryButton,
   CategoryName,
+  ExpenseInput,
   SubmitButton,
   DisabledButton,
-  SubmitBar,
 } from './ExpenseForm.styled'
-import BaseInput from '../SignForm/BaseInput'
 import CategoriesSVG from './CategoriesSVG'
 
 const categories = [
@@ -108,13 +107,13 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
 
       <FieldGroup>
         <FieldLabel>Описание {errors.description && <span>*</span>}</FieldLabel>
-        <BaseInput
+        <ExpenseInput
           id="description"
           type="text"
           name="description"
           placeholder="Введите описание"
-          value={formData.description}
-          error={errors.description}
+          $value={formData.description}
+          $error={errors.description}
           onChange={handleChange}
         />
       </FieldGroup>
@@ -141,38 +140,36 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
 
       <FieldGroup>
         <FieldLabel>Дата {errors.date && <span>*</span>}</FieldLabel>
-        <BaseInput
+        <ExpenseInput
+          id="date"
           type="date"
           name="date"
-          placeholder="Введите дату"
-          value={formData.date}
-          error={errors.date}
+          $value={formData.date}
+          $error={errors.date}
           onChange={handleChange}
         />
       </FieldGroup>
 
       <FieldGroup>
         <FieldLabel>Сумма {errors.amount && <span>*</span>}</FieldLabel>
-        <BaseInput
+        <ExpenseInput
+          id="amount"
           type="number"
           min={0}
           name="amount"
           placeholder="Введите сумму"
-          value={formData.amount}
-          error={errors.amount}
+          $value={formData.amount}
+          $error={errors.amount}
           onChange={handleChange}
         />
       </FieldGroup>
-
-      <SubmitBar>
-        {!error ? (
-          <SubmitButton type="submit">Добавить новый расход</SubmitButton>
-        ) : (
-          <DisabledButton type="button" disabled={true}>
-            Добавить новый расход
-          </DisabledButton>
-        )}
-      </SubmitBar>
+      {!error ? (
+        <SubmitButton type="submit">Добавить новый расход</SubmitButton>
+      ) : (
+        <DisabledButton type="button" disabled={true}>
+          Добавить новый расход
+        </DisabledButton>
+      )}
     </FormS>
   )
 }

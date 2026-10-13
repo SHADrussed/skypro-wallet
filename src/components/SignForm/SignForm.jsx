@@ -75,10 +75,11 @@ const SignForm = ({ isLogin = false }) => {
       return
     }
     try {
-      login()
+      await login(formData, isLogin)
       navigate('/')
     } catch (err) {
-      setError(err.message)
+      setErrors({ name: !isLogin, login: true, password: true })
+      setError(err.message || 'Не удалось выполнить запрос')
     }
   }
 
