@@ -1,6 +1,8 @@
+@import '@fontsource-variable/montserrat/wght.css';
+
 * {
   box-sizing: border-box;
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: 'Montserrat Variable', Arial, sans-serif;
 }
 
 html,

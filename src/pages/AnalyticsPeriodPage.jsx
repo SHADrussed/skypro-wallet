@@ -6,12 +6,27 @@ import { useAnalytics } from '../context/AnalyticsContext'
 import BackLink from '../components/BackLink/BackLink'
 
 const PeriodPage = styled.main`
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
   min-height: 100svh;
+  overflow: hidden;
+  > header {
+    flex-shrink: 0;
+  }
 `
 const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
   max-width: 520px;
-  margin: 24px auto;
-  padding: 0 16px 24px;
+  margin: 24px auto 0;
+  padding: 0 16px;
+  > a {
+    flex-shrink: 0;
+  }
 `
 export default function AnalyticsPeriodPage() {
   const navigate = useNavigate()

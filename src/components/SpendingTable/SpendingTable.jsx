@@ -9,6 +9,7 @@ import {
 import Expenses from '../Expenses/Expenses'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   getTransactions,
   createTransaction,
@@ -17,9 +18,22 @@ import {
 } from '../../services/transactions'
 
 const SpendingTable = () => {
-  const [isForm, setIsForm] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [isEditForm, setIsEditForm] = useState(false)
+  const isNewForm = searchParams.get('expense') === 'new'
+  const isForm = isEditForm || isNewForm
+  const setIsForm = (visible, mode = 'new') => {
+    setIsEditForm(visible && mode === 'edit')
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current)
+      if (visible && mode === 'new') next.set('expense', 'new')
+      else next.delete('expense')
+      return next
+    })
+  }
   const [transactions, setTransactions] = useState([])
   const [editingTransaction, setEditingTransaction] = useState(null)
+  const activeTransaction = isNewForm ? null : editingTransaction
   const [isLoading, setIsLoading] = useState(true)
   const [isBusy, setIsBusy] = useState(false)
   const [error, setError] = useState('')
@@ -43,7 +57,7 @@ const SpendingTable = () => {
 
   const startEdit = (transaction) => {
     setEditingTransaction(transaction)
-    setIsForm(true)
+    setIsForm(true, 'edit')
   }
 
   const handleSave = async (formData) => {
@@ -57,9 +71,9 @@ const SpendingTable = () => {
     setIsBusy(true)
     setError('')
     try {
-      const items = editingTransaction
+      const items = activeTransaction
         ? await updateTransaction(
-            editingTransaction._id ?? editingTransaction.id,
+            activeTransaction._id ?? activeTransaction.id,
             payload,
           )
         : await createTransaction(payload)
@@ -162,9 +176,9 @@ const SpendingTable = () => {
         isBusy={isBusy || isLoading}
       />
       <ExpenseForm
-        key={editingTransaction?._id ?? editingTransaction?.id ?? 'new'}
+        key={activeTransaction?._id ?? activeTransaction?.id ?? 'new'}
         $hiddenMobile={!isForm}
-        initialTransaction={editingTransaction}
+        initialTransaction={activeTransaction}
         onSave={handleSave}
         isSubmitting={isBusy || isLoading}
       />

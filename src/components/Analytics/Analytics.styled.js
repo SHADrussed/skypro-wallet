@@ -4,7 +4,7 @@ import theme from '../../theme'
 export const Page = styled.div`
   background-color: ${theme.colors.background};
 
-  padding: 20px clamp(24px, 6vw, 120px);
+  padding: 20px clamp(24px, 8.333vw, 120px);
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
@@ -19,7 +19,7 @@ export const Page = styled.div`
 `
 
 export const Title = styled.h1`
-  margin-bottom: ${theme.spacing.xxl};
+  margin: 0 0 ${theme.spacing.xxl};
 
   @media (max-width: 768px) {
     margin: 0 0 24px;
@@ -75,7 +75,7 @@ export const PeriodLink = styled.a`
     justify-content: center;
     margin-top: 0;
     border-radius: 8px;
-    background: ${theme.colors.chart.greenText};
+    background: ${theme.colors.primary};
     color: ${theme.colors.primaryText};
     font-weight: ${theme.typography.fontWeight.semibold};
     text-decoration: none;

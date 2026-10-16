@@ -14,6 +14,7 @@ export const GraphsStyled = styled.div`
   height: inherit;
 
   padding: ${theme.spacing.xxl};
+  box-shadow: ${theme.shadows.card};
 
   @media (max-width: 768px) {
     flex: 1;
@@ -23,6 +24,7 @@ export const GraphsStyled = styled.div`
     padding: 0;
     border-radius: 0;
     background: transparent;
+    box-shadow: none;
   }
 `
 export const AnalyticsHeader = styled.div`
@@ -85,14 +87,14 @@ export const Chart = styled.div`
   height: 360px;
 
   display: grid;
-  grid-template-columns: repeat(6, minmax(64px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(8px, 1.7vw, 24px);
 
   @media (max-width: 768px) {
     height: 360px;
     margin-top: 0;
     padding-bottom: 4px;
-    grid-template-columns: repeat(6, minmax(46px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 6px;
 
     &::-webkit-scrollbar {
@@ -122,6 +124,10 @@ export const BarArea = styled.div`
 `
 
 export const Amount = styled.span`
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+  font-size: clamp(10px, 1vw, 14px);
   margin-bottom: 12px;
 
   font-weight: ${theme.typography.fontWeight.semibold};
@@ -131,11 +137,16 @@ export const Amount = styled.span`
     margin-bottom: 8px;
     font-size: 11px;
     text-align: center;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    font-size: clamp(9px, 2.65vw, 11px);
   }
 `
 
 export const Category = styled.span`
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin-top: 12px;
   text-align: center;
 

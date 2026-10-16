@@ -25,7 +25,7 @@ const theme = {
   },
 
   typography: {
-    fontFamily: "'Montserrat', Arial, sans-serif",
+    fontFamily: "'Montserrat Variable', Arial, sans-serif",
     fontWeight: {
       regular: 400,
       medium: 500,

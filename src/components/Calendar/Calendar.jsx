@@ -64,7 +64,10 @@ export default function Calendar({ mobileTitle, onConfirm }) {
   return (
     <CalendarCard>
       <CalendarHeader $periodMode={periodMode}>
-        <CalendarHeaderTitle $mobileTitle={Boolean(mobileTitle)}>
+        <CalendarHeaderTitle
+          as={mobileTitle ? 'h1' : 'h2'}
+          $mobileTitle={Boolean(mobileTitle)}
+        >
           {mobileTitle || 'Период'}
         </CalendarHeaderTitle>
         <CalendarHeaderPeriods>

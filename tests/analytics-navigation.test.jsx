@@ -72,3 +72,37 @@ it('confirms a mobile period, cancels a draft and preserves the applied total', 
       .getAttribute('aria-pressed'),
   ).toBe('false')
 })
+
+it('opens a fresh expense from the header after editing and closes navigation with Escape', async () => {
+  const user = userEvent.setup()
+  getTransactions.mockResolvedValue([
+    {
+      _id: 'qa-edit',
+      description: 'Старый расход',
+      date: '2026-10-01',
+      category: 'food',
+      sum: 100,
+    },
+  ])
+  const { container } = open('/')
+  await user.click(
+    await screen.findByRole('button', {
+      name: 'Редактировать расход: Старый расход',
+    }),
+  )
+  expect(container.querySelector('#description').value).toBe('Старый расход')
+  await user.click(screen.getByLabelText('Навигация: Мои расходы'))
+  await user.click(
+    screen
+      .getByLabelText('Мобильная навигация')
+      .querySelector('a[href="/?expense=new"]'),
+  )
+  expect(container.querySelector('#description').value).toBe('')
+  expect(screen.getByRole('heading', { name: 'Новый расход' })).toBeTruthy()
+  const navigation = screen.getByLabelText('Навигация: Новый расход')
+  await user.click(navigation)
+  expect(navigation.getAttribute('aria-expanded')).toBe('true')
+  await user.keyboard('{Escape}')
+  expect(navigation.getAttribute('aria-expanded')).toBe('false')
+  expect(screen.queryByLabelText('Мобильная навигация')).toBe(null)
+})

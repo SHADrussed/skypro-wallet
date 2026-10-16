@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import theme from '../../theme'
 
 export const SpendingTable = styled.main`
-  grid-column: 1 / span 8;
+  grid-column: 1;
+  min-width: 0;
   height: 618px;
 
   display: flex;
@@ -36,7 +37,7 @@ export const Title = styled.h1`
 
 export const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) 88px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 88px 88px 64px;
   align-items: center;
   column-gap: 0;
   padding-bottom: 8px;

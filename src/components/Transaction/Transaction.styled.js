@@ -3,7 +3,7 @@ import theme from '../../theme'
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) 88px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 88px 88px 64px;
   align-items: center;
   column-gap: 0;
   min-height: 32px;
@@ -21,6 +21,8 @@ export const Container = styled.div`
 `
 
 export const TransactionValue = styled.p`
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: ${theme.typography.fontSize.caption};
   font-weight: ${theme.typography.fontWeight.regular};
   color: ${({ $selected }) => ($selected ? theme.colors.primary : theme.colors.text)};

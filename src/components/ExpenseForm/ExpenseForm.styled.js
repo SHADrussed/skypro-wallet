@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import theme from '../../theme'
 
 export const FormS = styled.form`
-  grid-column: span 4;
-  height: 618px;
+  grid-column: 2;
+  min-width: 0;
+  min-height: 618px;
   box-sizing: border-box;
 
   display: flex;
@@ -15,13 +16,18 @@ export const FormS = styled.form`
   padding: 32px;
   box-shadow: ${theme.shadows.card};
 
+  @media (min-width: 769px) and (max-width: 1100px) {
+    grid-column: 1;
+  }
+
   @media (max-width: 768px) {
     display: ${({ $hiddenMobile }) => ($hiddenMobile ? 'none' : 'flex')};
     flex: 1;
     height: auto;
+    min-height: 0;
     box-sizing: border-box;
     border-radius: 0;
-    padding: 0 0 103px; /* место под фиксированную панель с кнопкой */
+    padding: 0 0 24px;
     box-shadow: none;
     gap: 24px;
   }

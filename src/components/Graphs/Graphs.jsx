@@ -104,7 +104,7 @@ export default function Graphs() {
                   />
                 </BarArea>
 
-                <Category>{item.name}</Category>
+                <Category title={item.name}>{item.name}</Category>
               </Column>
             )
           })}

@@ -3,14 +3,19 @@ import theme from '../../theme'
 
 export const Page = styled.div`
   background-color: ${theme.colors.background};
-  height: calc(100vh - 64px);
-  padding: 36px 120px;
+  min-height: calc(100vh - 64px);
+  padding: 36px clamp(24px, 8.333vw, 120px);
   gap: 32px;
 
   display: grid;
 
-  grid-template-rows: 48px auto;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  align-items: start;
+
+  @media (min-width: 769px) and (max-width: 1100px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
   @media (max-width: 768px) {
     box-sizing: border-box;
@@ -28,8 +33,8 @@ export const PageHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  grid-column: span 12;
-  margin-bottom: ${theme.spacing.xxl};
+  grid-column: 1 / -1;
+  margin-bottom: 0;
   align-self: center;
 
   @media (max-width: 768px) {
@@ -37,6 +42,8 @@ export const PageHeader = styled.header`
     align-items: flex-end;
     margin: 0 0 22px;
     width: 100%;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 `
 
