@@ -1,4 +1,4 @@
-import { useAuth } from '../../context/ContextProvider'
+import { useAuth } from '../context/useAuth'
 import Header from '../Header/Header'
 import {
   AuthPage,
