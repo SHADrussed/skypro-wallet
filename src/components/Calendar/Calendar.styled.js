@@ -3,6 +3,9 @@ import theme from '../../theme'
 import { Title } from '../../common'
 
 export const CalendarCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   background-color: ${theme.colors.surface};
 
   border-radius: ${theme.radii.card};
@@ -72,7 +75,7 @@ export const Weekdays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid #d9d9d9;
 
   @media (max-width: 768px) {
     padding: 0;
@@ -88,6 +91,8 @@ export const Weekday = styled.span`
   }
 `
 export const CalendarFooter = styled.div`
+  min-height: 0;
+  flex: 1;
   padding: ${theme.spacing.xxl};
   overflow-y: auto;
   max-height: 420px;
@@ -144,7 +149,7 @@ export const DaysGrid = styled.div`
   }
 `
 export const Day = styled.button`
-  width: 40px;
+  width: 100%;
   height: 40px;
   padding: 0;
   border: 0;
@@ -181,6 +186,42 @@ export const Day = styled.button`
   @media (max-width: 768px) {
     width: 100%;
     height: min(44px, calc((100vw - 56px) / 7));
+  }
+`
+
+export const CalendarControls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  button {
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+  }
+`
+
+export const ConfirmPeriod = styled.div`
+  padding: 12px 24px;
+  font-size: 12px;
+  p {
+    margin: 0 0 8px;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    background: ${theme.colors.chart.greenText};
+    color: ${theme.colors.primaryText};
+    font: inherit;
+    cursor: pointer;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 `
 

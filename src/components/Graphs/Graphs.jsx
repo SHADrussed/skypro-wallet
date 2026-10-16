@@ -13,24 +13,67 @@ import {
   TotalAmount,
 } from './Graphs.styled'
 import { useAnalytics } from '../../context/AnalyticsContext'
-
-const expenses = [
-  { name: 'Еда', color: 'purple' },
-  { name: 'Транспорт', color: 'orange' },
-  { name: 'Жилье', color: 'blue' },
-  { name: 'Развлечения', color: 'violet' },
-  { name: 'Образование', color: 'lime' },
-  { name: 'Другое', color: 'red' },
-]
+import { useEffect, useState } from 'react'
+import { getTransactions } from '../../services/transactions'
+import {
+  aggregateExpenses,
+  categories,
+  formatPeriod,
+} from '../../utils/analytics'
 
 export default function Graphs() {
   const { appliedPeriod } = useAnalytics()
-  const chartItems = expenses.map((item, index) => ({
+  const [result, setResult] = useState({ loading: true, items: [], error: '' })
+  const [attempt, setAttempt] = useState(0)
+  useEffect(() => {
+    let active = true
+    getTransactions()
+      .then((items) => {
+        if (active) setResult({ loading: false, items, error: '' })
+      })
+      .catch((error) => {
+        if (active)
+          setResult({ loading: false, items: [], error: error.message })
+      })
+    return () => {
+      active = false
+    }
+  }, [attempt])
+  const summary = aggregateExpenses(result.items, appliedPeriod)
+  const chartItems = categories.map((item, index) => ({
     ...item,
-    amount: appliedPeriod.values[index],
+    amount: summary.values[index],
   }))
-  const maxAmount = Math.max(...chartItems.map((item) => item.amount))
-  const formattedTotal = appliedPeriod.total.toLocaleString('ru-RU')
+  const maxAmount = Math.max(1, ...summary.values)
+  const formattedTotal = summary.total.toLocaleString('ru-RU')
+
+  if (!appliedPeriod)
+    return (
+      <GraphsStyled>
+        <p role="status">Выберите период, чтобы увидеть расходы.</p>
+      </GraphsStyled>
+    )
+  if (result.loading)
+    return (
+      <GraphsStyled>
+        <p role="status">Загрузка расходов...</p>
+      </GraphsStyled>
+    )
+  if (result.error)
+    return (
+      <GraphsStyled>
+        <p role="alert">{result.error}</p>
+        <button
+          type="button"
+          onClick={() => {
+            setResult({ loading: true, items: [], error: '' })
+            setAttempt((value) => value + 1)
+          }}
+        >
+          Повторить загрузку
+        </button>
+      </GraphsStyled>
+    )
 
   return (
     <GraphsStyled>
@@ -38,9 +81,12 @@ export default function Graphs() {
         <TotalAmount>{formattedTotal} ₽</TotalAmount>
         <PeriodBlock>
           <span>Расходы за</span>
-          <Period>{appliedPeriod.label}</Period>
+          <Period>{formatPeriod(appliedPeriod)}</Period>
         </PeriodBlock>
       </AnalyticsHeader>
+      {summary.count === 0 && (
+        <p role="status">За выбранный период расходов нет.</p>
+      )}
       <GraphContent>
         <Chart>
           {chartItems.map((item) => {
