@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { AuthContext } from './ContextAPI'
 import { Login, Register } from '../services/auth'
 
@@ -45,10 +45,3 @@ export const AuthContextProvider = ({ children }) => {
   )
 }
 
-export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth должен использоваться внутри AuthProvider')
-  }
-  return context
-}
