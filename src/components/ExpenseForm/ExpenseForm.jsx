@@ -9,7 +9,6 @@ import {
   CategoryName,
   ExpenseInput,
   SubmitButton,
-  DisabledButton,
 } from './ExpenseForm.styled'
 import CategoriesSVG from './CategoriesSVG'
 
@@ -30,19 +29,24 @@ const emptyErrors = {
   amount: false,
 }
 
-const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
-  const [formData, setFormData] = useState(emptyForm)
+const ExpenseForm = ({ onSave, initialTransaction, isSubmitting = false, $hiddenMobile }) => {
+  const [formData, setFormData] = useState(() => initialTransaction ? {
+    description: initialTransaction.description ?? '',
+    category: initialTransaction.category ?? '',
+    date: initialTransaction.date?.slice(0, 10) ?? '',
+    amount: String(initialTransaction.sum ?? ''),
+  } : emptyForm)
   const [errors, setErrors] = useState(emptyErrors)
   const [error, setError] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState(initialTransaction?.category ?? '')
 
   const validateForm = () => {
     const newErrors = { ...emptyErrors }
     let isValid = true
 
-    if (!formData.description.trim()) {
+    if (formData.description.trim().length < 4) {
       newErrors.description = true
-      setError('Заполните все поля')
+      setError('Описание должно содержать минимум 4 символа')
       isValid = false
     }
 
@@ -62,9 +66,9 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
       newErrors.amount = true
       setError('Заполните все поля')
       isValid = false
-    } else if (Number(formData.amount) <= 0) {
+    } else if (!Number.isInteger(Number(formData.amount)) || Number(formData.amount) <= 0) {
       newErrors.amount = true
-      setError('Сумма не может быть меньше или равна нулю')
+      setError('Сумма должна быть положительным целым числом')
       isValid = false
     }
 
@@ -89,21 +93,24 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
     setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validateForm()) {
-      return
+    if (isSubmitting || !validateForm()) return
+
+    try {
+      await onSave(formData)
+      setFormData(emptyForm)
+      setSelectedCategory('')
+      setErrors(emptyErrors)
+      setError('')
+    } catch (err) {
+      setError(err.message || 'Не удалось сохранить расход')
     }
-    onAdd?.(formData)
-    setFormData(emptyForm)
-    setSelectedCategory('')
-    setErrors(emptyErrors)
-    setError('')
   }
 
   return (
     <FormS onSubmit={handleSubmit} $hiddenMobile={$hiddenMobile}>
-      <FormTitle>Новый расход</FormTitle>
+      <FormTitle>{initialTransaction ? 'Редактировать расход' : 'Новый расход'}</FormTitle>
 
       <FieldGroup>
         <FieldLabel>Описание {errors.description && <span>*</span>}</FieldLabel>
@@ -111,6 +118,7 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
           id="description"
           type="text"
           name="description"
+          value={formData.description}
           placeholder="Введите описание"
           $value={formData.description}
           $error={errors.description}
@@ -144,6 +152,7 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
           id="date"
           type="date"
           name="date"
+          value={formData.date}
           $value={formData.date}
           $error={errors.date}
           onChange={handleChange}
@@ -157,19 +166,17 @@ const ExpenseForm = ({ onAdd, $hiddenMobile }) => {
           type="number"
           min={0}
           name="amount"
+          value={formData.amount}
           placeholder="Введите сумму"
           $value={formData.amount}
           $error={errors.amount}
           onChange={handleChange}
         />
       </FieldGroup>
-      {!error ? (
-        <SubmitButton type="submit">Добавить новый расход</SubmitButton>
-      ) : (
-        <DisabledButton type="button" disabled={true}>
-          Добавить новый расход
-        </DisabledButton>
-      )}
+      {error && <p role="alert">{error}</p>}
+      <SubmitButton type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Сохранение...' : initialTransaction ? 'Сохранить изменения' : 'Добавить новый расход'}
+      </SubmitButton>
     </FormS>
   )
 }
