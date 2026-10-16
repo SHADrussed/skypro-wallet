@@ -3,6 +3,7 @@ import theme from '../../theme'
 import { Title } from '../../common'
 
 export const GraphsStyled = styled.div`
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,7 +85,7 @@ export const Chart = styled.div`
   height: 360px;
 
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(64px, 1fr));
   gap: 24px;
 
   @media (max-width: 768px) {

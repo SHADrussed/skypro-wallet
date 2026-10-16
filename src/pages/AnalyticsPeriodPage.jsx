@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Calendar from '../components/Calendar/Calendar'
 import Header from '../components/Header/Header'
 import { useAnalytics } from '../context/AnalyticsContext'
+import BackLink from '../components/BackLink/BackLink'
 
 const PeriodPage = styled.main`
   min-height: 100svh;
@@ -19,9 +20,9 @@ export default function AnalyticsPeriodPage() {
     <PeriodPage>
       <Header isSpendingTablePage={false} />
       <Content>
-        <Link to="/analytics" onClick={resetDraftPeriod}>
-          ← Анализ расходов
-        </Link>
+        <BackLink to="/analytics" onClick={resetDraftPeriod}>
+          Анализ расходов
+        </BackLink>
         <Calendar
           mobileTitle="Выбор периода"
           onConfirm={() => navigate('/analytics')}
