@@ -36,7 +36,7 @@ export const Title = styled.h1`
 
 export const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 32px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 88px;
   align-items: center;
   column-gap: 0;
   padding-bottom: 8px;
@@ -44,13 +44,13 @@ export const TableHeader = styled.div`
 
   @media (max-width: 768px) {
     /* на всю ширину экрана, линия под шапкой тоже */
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 28px;
+    column-gap: 6px;
     margin: 0 -16px;
     padding: 0 16px 6px;
 
     & span {
-      display: none;
+      display: block;
     }
   }
 `
@@ -91,7 +91,9 @@ export const TableBody = styled.div`
 
 /* Нижняя панель 87px: отступы 24px, кнопка 39px. Видна, только когда что-то выбрано */
 export const DeletionForm = styled.div`
-  display: none;
+  display: ${({ $visible }) => ($visible ? 'block' : 'none')};
+  margin-top: 8px;
+  padding: 12px 0;
 
   @media (max-width: 768px) {
     display: ${({ $visible }) => ($visible ? 'block' : 'none')};
