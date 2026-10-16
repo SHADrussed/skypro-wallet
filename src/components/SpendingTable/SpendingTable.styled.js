@@ -98,3 +98,22 @@ export const BackButton = styled.button`
     color: ${theme.colors.textSecondary};
   }
 `
+
+export const Feedback = styled.div`
+  position: fixed;
+  z-index: 10;
+  top: 80px;
+  right: 24px;
+  max-width: min(380px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.radii.control};
+  background: ${theme.colors.surface};
+  color: ${theme.colors.text};
+  box-shadow: ${theme.shadows.card};
+
+  @media (max-width: 768px) {
+    top: 60px;
+    right: 16px;
+  }
+`
