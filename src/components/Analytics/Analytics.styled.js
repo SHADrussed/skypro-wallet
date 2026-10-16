@@ -4,7 +4,7 @@ import theme from '../../theme'
 export const Page = styled.div`
   background-color: ${theme.colors.background};
 
-  padding: 20px 120px;
+  padding: 20px clamp(24px, 8.333vw, 120px);
   min-height: calc(100vh - 64px);
 
   @media (max-width: 768px) {
@@ -19,7 +19,7 @@ export const Page = styled.div`
 `
 
 export const Title = styled.h1`
-  margin-bottom: ${theme.spacing.xxl};
+  margin: 0 0 ${theme.spacing.xxl};
 
   @media (max-width: 768px) {
     margin: 0 0 24px;
@@ -29,7 +29,7 @@ export const Title = styled.h1`
 
 export const AnalyticsBlock = styled.div`
   display: grid;
-  grid-template-columns: minmax(380px, 1fr) minmax(0, 2fr);
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 2fr);
   height: 540px;
   gap: ${theme.spacing.xxl};
 
@@ -44,6 +44,8 @@ export const AnalyticsBlock = styled.div`
 
 export const CalendarSection = styled.div`
   min-width: 0;
+  min-height: 0;
+  height: 100%;
 
   @media (max-width: 768px) {
     display: none;
@@ -73,7 +75,7 @@ export const PeriodLink = styled.a`
     justify-content: center;
     margin-top: 0;
     border-radius: 8px;
-    background: ${theme.colors.chart.greenText};
+    background: ${theme.colors.primary};
     color: ${theme.colors.primaryText};
     font-weight: ${theme.typography.fontWeight.semibold};
     text-decoration: none;

@@ -1,11 +1,17 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { AuthContext } from './ContextAPI'
 import { Login, Register } from '../services/auth'
 
 export const AuthContextProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(() =>
-    Boolean(localStorage.getItem('userInfo')),
-  )
+  const [isAuth, setIsAuth] = useState(() => {
+    try {
+      return Boolean(
+        JSON.parse(localStorage.getItem('userInfo') || 'null')?.token,
+      )
+    } catch {
+      return false
+    }
+  })
 
   const login = async (formData, isLogin) => {
     const data = isLogin
@@ -16,10 +22,20 @@ export const AuthContextProvider = ({ children }) => {
           password: formData.password,
         })
 
-    if (data) {
-      setIsAuth(true)
-      localStorage.setItem('userInfo', JSON.stringify(data))
+    if (!data?.token) {
+      throw new Error('Сервер не вернул токен авторизации')
     }
+
+    localStorage.setItem(
+      'userInfo',
+      JSON.stringify({
+        token: data.token,
+        id: data.id,
+        login: data.login,
+        name: data.name,
+      }),
+    )
+    setIsAuth(true)
   }
 
   const logout = () => {
@@ -32,12 +48,4 @@ export const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth должен использоваться внутри AuthProvider')
-  }
-  return context
 }

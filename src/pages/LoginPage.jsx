@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import SignForm from '../components/SignForm/SignForm'
-import { useAuth } from '../context/ContextProvider'
+import { useAuth } from '../context/useAuth'
 
 const LoginPage = () => {
   const { isAuth } = useAuth()

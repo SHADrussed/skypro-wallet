@@ -3,7 +3,7 @@ import theme from '../../theme'
 
 export const AuthPage = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100svh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;

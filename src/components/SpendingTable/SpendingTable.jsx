@@ -4,74 +4,127 @@ import {
   Page,
   PageHeader,
   PageTitle,
+  Feedback,
 } from './SpendingTable.styled'
 import Expenses from '../Expenses/Expenses'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
-import { useState } from 'react'
-
-const initialTransactions = [
-  {
-    _id: '67e4688c8d573f845a6083f3',
-    userId: '67e2cba0d743f2b960865bcb',
-    description: 'Игры Steam',
-    category: 'joy',
-    date: '2025-12-11T21:00:00.000Z',
-    sum: 1,
-  },
-  {
-    _id: '67e46c604d573f845a6083f4',
-    userId: '67e2cba0d743f2b960865bcb',
-    description: 'Аквапарк',
-    category: 'joy',
-    date: '2025-12-11T21:00:00.000Z',
-    sum: 1,
-  },
-  {
-    _id: '67e4688c8d573f245a6083f3',
-    userId: '67e2cba0d743f2b960865bcb',
-    description: 'Игры Steam',
-    category: 'joy',
-    date: '2025-12-11T21:00:00.000Z',
-    sum: 1,
-  },
-  {
-    _id: '67e46c608d573f845a6083f4',
-    userId: '67e2cba0d743f2b960865bcb',
-    description: 'Аквапарк',
-    category: 'joy',
-    date: '2025-12-11T21:00:00.000Z',
-    sum: 1,
-  },
-]
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import {
+  getTransactions,
+  createTransaction,
+  updateTransaction,
+  deleteTransaction,
+} from '../../services/transactions'
 
 const SpendingTable = () => {
-  const [isForm, setisForm] = useState(false)
-  const [transactions, setTransactions] = useState(initialTransactions)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [isEditForm, setIsEditForm] = useState(false)
+  const isNewForm = searchParams.get('expense') === 'new'
+  const isForm = isEditForm || isNewForm
+  const setIsForm = (visible, mode = 'new') => {
+    setIsEditForm(visible && mode === 'edit')
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current)
+      if (visible && mode === 'new') next.set('expense', 'new')
+      else next.delete('expense')
+      return next
+    })
+  }
+  const [transactions, setTransactions] = useState([])
+  const [editingTransaction, setEditingTransaction] = useState(null)
+  const activeTransaction = isNewForm ? null : editingTransaction
+  const [isLoading, setIsLoading] = useState(true)
+  const [isBusy, setIsBusy] = useState(false)
+  const [error, setError] = useState('')
 
-  const addTransaction = (data) => {
-    setTransactions((prev) => [
-      {
-        _id: String(Date.now()),
-        description: data.description,
-        category: data.category,
-        date: data.date,
-        sum: Number(data.amount),
-      },
-      ...prev,
-    ])
-    setisForm(false)
+  useEffect(() => {
+    let active = true
+    getTransactions()
+      .then((items) => {
+        if (active) setTransactions(items)
+      })
+      .catch((err) => {
+        if (active) setError(err.message)
+      })
+      .finally(() => {
+        if (active) setIsLoading(false)
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const startEdit = (transaction) => {
+    setEditingTransaction(transaction)
+    setIsForm(true, 'edit')
   }
 
-  const deleteTransactions = (ids) => {
-    setTransactions((prev) => prev.filter((t) => !ids.includes(t._id)))
+  const handleSave = async (formData) => {
+    if (isBusy) return
+    const payload = {
+      description: formData.description.trim(),
+      category: formData.category,
+      date: formData.date,
+      sum: Number(formData.amount),
+    }
+    setIsBusy(true)
+    setError('')
+    try {
+      const items = activeTransaction
+        ? await updateTransaction(
+            activeTransaction._id ?? activeTransaction.id,
+            payload,
+          )
+        : await createTransaction(payload)
+      setTransactions(items)
+      setEditingTransaction(null)
+      setIsForm(false)
+    } catch (err) {
+      setError(err.message)
+      throw err
+    } finally {
+      setIsBusy(false)
+    }
+  }
+
+  const deleteTransactions = async (ids) => {
+    if (isBusy || ids.length === 0) return
+    setIsBusy(true)
+    setError('')
+    try {
+      let items = transactions
+      for (const id of ids) {
+        items = await deleteTransaction(id)
+      }
+      setTransactions(items)
+    } catch (err) {
+      setError(err.message)
+      try {
+        setTransactions(await getTransactions())
+      } catch {
+        // Keep the error visible; a later reload can retry.
+      }
+      throw err
+    } finally {
+      setIsBusy(false)
+    }
   }
 
   return (
     <Page>
+      {error ? (
+        <Feedback role="alert">{error}</Feedback>
+      ) : isLoading ? (
+        <Feedback role="status">Загрузка расходов...</Feedback>
+      ) : null}
       <BackButton
         type="button"
         $visible={isForm}
-        onClick={() => setisForm(false)}
+        onClick={() => {
+          setIsForm(false)
+          setEditingTransaction(null)
+        }}
       >
         <svg
           width="14"
@@ -90,7 +143,13 @@ const SpendingTable = () => {
 
       <PageHeader $hiddenMobile={isForm}>
         <PageTitle>Мои расходы</PageTitle>
-        <MobileNewExpense type="button" onClick={() => setisForm(true)}>
+        <MobileNewExpense
+          type="button"
+          onClick={() => {
+            setIsForm(true)
+            setEditingTransaction(null)
+          }}
+        >
           {!isForm && (
             <svg
               width="14"
@@ -113,8 +172,16 @@ const SpendingTable = () => {
         $hiddenMobile={isForm}
         transactions={transactions}
         onDelete={deleteTransactions}
+        onEdit={startEdit}
+        isBusy={isBusy || isLoading}
       />
-      <ExpenseForm $hiddenMobile={!isForm} onAdd={addTransaction} />
+      <ExpenseForm
+        key={activeTransaction?._id ?? activeTransaction?.id ?? 'new'}
+        $hiddenMobile={!isForm}
+        initialTransaction={activeTransaction}
+        onSave={handleSave}
+        isSubmitting={isBusy || isLoading}
+      />
     </Page>
   )
 }
