@@ -1,5 +1,5 @@
 import { Exit, HeaderS, Logo, NavBar, NavLink } from './Header.styled'
-import { useAuth } from '../../context/ContextProvider'
+import { useAuth } from '../context/useAuth'
 
 const Header = ({ isSpendingTablePage }) => {
   const { isAuth, logout } = useAuth()
