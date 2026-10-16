@@ -11,7 +11,13 @@ import {
   DeleteButton,
 } from './Expenses.styled'
 
-const Expenses = ({ transactions = [], onDelete, onEdit, isBusy = false, $hiddenMobile }) => {
+const Expenses = ({
+  transactions = [],
+  onDelete,
+  onEdit,
+  isBusy = false,
+  $hiddenMobile,
+}) => {
   const [selectedIds, setSelectedIds] = useState([])
 
   const toggleSelect = (id) => {

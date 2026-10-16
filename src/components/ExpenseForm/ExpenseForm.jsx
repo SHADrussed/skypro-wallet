@@ -29,16 +29,27 @@ const emptyErrors = {
   amount: false,
 }
 
-const ExpenseForm = ({ onSave, initialTransaction, isSubmitting = false, $hiddenMobile }) => {
-  const [formData, setFormData] = useState(() => initialTransaction ? {
-    description: initialTransaction.description ?? '',
-    category: initialTransaction.category ?? '',
-    date: initialTransaction.date?.slice(0, 10) ?? '',
-    amount: String(initialTransaction.sum ?? ''),
-  } : emptyForm)
+const ExpenseForm = ({
+  onSave,
+  initialTransaction,
+  isSubmitting = false,
+  $hiddenMobile,
+}) => {
+  const [formData, setFormData] = useState(() =>
+    initialTransaction
+      ? {
+          description: initialTransaction.description ?? '',
+          category: initialTransaction.category ?? '',
+          date: initialTransaction.date?.slice(0, 10) ?? '',
+          amount: String(initialTransaction.sum ?? ''),
+        }
+      : emptyForm,
+  )
   const [errors, setErrors] = useState(emptyErrors)
   const [error, setError] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState(initialTransaction?.category ?? '')
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialTransaction?.category ?? '',
+  )
 
   const validateForm = () => {
     const newErrors = { ...emptyErrors }
@@ -66,7 +77,10 @@ const ExpenseForm = ({ onSave, initialTransaction, isSubmitting = false, $hidden
       newErrors.amount = true
       setError('Заполните все поля')
       isValid = false
-    } else if (!Number.isInteger(Number(formData.amount)) || Number(formData.amount) <= 0) {
+    } else if (
+      !Number.isInteger(Number(formData.amount)) ||
+      Number(formData.amount) <= 0
+    ) {
       newErrors.amount = true
       setError('Сумма должна быть положительным целым числом')
       isValid = false
@@ -110,7 +124,9 @@ const ExpenseForm = ({ onSave, initialTransaction, isSubmitting = false, $hidden
 
   return (
     <FormS onSubmit={handleSubmit} $hiddenMobile={$hiddenMobile}>
-      <FormTitle>{initialTransaction ? 'Редактировать расход' : 'Новый расход'}</FormTitle>
+      <FormTitle>
+        {initialTransaction ? 'Редактировать расход' : 'Новый расход'}
+      </FormTitle>
 
       <FieldGroup>
         <FieldLabel>Описание {errors.description && <span>*</span>}</FieldLabel>
@@ -175,7 +191,11 @@ const ExpenseForm = ({ onSave, initialTransaction, isSubmitting = false, $hidden
       </FieldGroup>
       {error && <p role="alert">{error}</p>}
       <SubmitButton type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Сохранение...' : initialTransaction ? 'Сохранить изменения' : 'Добавить новый расход'}
+        {isSubmitting
+          ? 'Сохранение...'
+          : initialTransaction
+            ? 'Сохранить изменения'
+            : 'Добавить новый расход'}
       </SubmitButton>
     </FormS>
   )

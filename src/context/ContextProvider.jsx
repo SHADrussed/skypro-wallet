@@ -5,7 +5,9 @@ import { Login, Register } from '../services/auth'
 export const AuthContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(() => {
     try {
-      return Boolean(JSON.parse(localStorage.getItem('userInfo') || 'null')?.token)
+      return Boolean(
+        JSON.parse(localStorage.getItem('userInfo') || 'null')?.token,
+      )
     } catch {
       return false
     }
@@ -24,12 +26,15 @@ export const AuthContextProvider = ({ children }) => {
       throw new Error('Сервер не вернул токен авторизации')
     }
 
-    localStorage.setItem('userInfo', JSON.stringify({
-      token: data.token,
-      id: data.id,
-      login: data.login,
-      name: data.name,
-    }))
+    localStorage.setItem(
+      'userInfo',
+      JSON.stringify({
+        token: data.token,
+        id: data.id,
+        login: data.login,
+        name: data.name,
+      }),
+    )
     setIsAuth(true)
   }
 
@@ -44,4 +49,3 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-

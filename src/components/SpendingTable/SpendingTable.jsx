@@ -36,7 +36,9 @@ const SpendingTable = () => {
       .finally(() => {
         if (active) setIsLoading(false)
       })
-    return () => { active = false }
+    return () => {
+      active = false
+    }
   }, [])
 
   const startEdit = (transaction) => {
@@ -56,7 +58,10 @@ const SpendingTable = () => {
     setError('')
     try {
       const items = editingTransaction
-        ? await updateTransaction(editingTransaction._id ?? editingTransaction.id, payload)
+        ? await updateTransaction(
+            editingTransaction._id ?? editingTransaction.id,
+            payload,
+          )
         : await createTransaction(payload)
       setTransactions(items)
       setEditingTransaction(null)
@@ -102,7 +107,10 @@ const SpendingTable = () => {
       <BackButton
         type="button"
         $visible={isForm}
-        onClick={() => { setIsForm(false); setEditingTransaction(null) }}
+        onClick={() => {
+          setIsForm(false)
+          setEditingTransaction(null)
+        }}
       >
         <svg
           width="14"
@@ -121,7 +129,13 @@ const SpendingTable = () => {
 
       <PageHeader $hiddenMobile={isForm}>
         <PageTitle>Мои расходы</PageTitle>
-        <MobileNewExpense type="button" onClick={() => { setIsForm(true); setEditingTransaction(null) }}>
+        <MobileNewExpense
+          type="button"
+          onClick={() => {
+            setIsForm(true)
+            setEditingTransaction(null)
+          }}
+        >
           {!isForm && (
             <svg
               width="14"

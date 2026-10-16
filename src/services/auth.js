@@ -11,7 +11,10 @@ export async function Login(userData) {
     })
     return data.data.user
   } catch (error) {
-    throw new Error(error.response?.data?.error || error.message || 'Ошибка авторизации', { cause: error })
+    throw new Error(
+      error.response?.data?.error || error.message || 'Ошибка авторизации',
+      { cause: error },
+    )
   }
 }
 
@@ -28,6 +31,9 @@ export async function Register({ name, login, password }) {
     )
     return data.data.user
   } catch (error) {
-    throw new Error(error.response?.data?.error || error.message || 'Ошибка авторизации', { cause: error })
+    throw new Error(
+      error.response?.data?.error || error.message || 'Ошибка авторизации',
+      { cause: error },
+    )
   }
 }

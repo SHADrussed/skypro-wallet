@@ -34,7 +34,11 @@ const Transaction = ({
   isBusy = false,
 }) => {
   return (
-    <Container $selected={isSelected} onClick={onSelect} title="Нажмите строку для выбора расхода">
+    <Container
+      $selected={isSelected}
+      onClick={onSelect}
+      title="Нажмите строку для выбора расхода"
+    >
       <TransactionValue $selected={isSelected}>{description}</TransactionValue>
       <TransactionValue $selected={isSelected}>
         {categories[category]}

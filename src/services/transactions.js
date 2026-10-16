@@ -36,7 +36,8 @@ async function request(path = '', options = {}) {
 
   if (!response.ok) {
     throw new Error(
-      data?.error || data?.message ||
+      data?.error ||
+        data?.message ||
         (response.status === 401
           ? 'Сессия истекла. Войдите заново.'
           : `Ошибка сервера: ${response.status}`),
@@ -48,7 +49,8 @@ async function request(path = '', options = {}) {
 
 export async function getTransactions() {
   const data = await request()
-  if (!Array.isArray(data)) throw new Error('Сервер вернул неверный список расходов')
+  if (!Array.isArray(data))
+    throw new Error('Сервер вернул неверный список расходов')
   return data
 }
 
