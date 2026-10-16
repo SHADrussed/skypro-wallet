@@ -1,19 +1,62 @@
-# React + Vite
+# SkyproWallet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебное SPA для учёта личных расходов, созданное командой из двух разработчиков.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Регистрация, вход и выход через Skypro API.
+- Защищённые страницы для авторизованных пользователей.
+- Получение расходов с сервера, добавление, редактирование и удаление (в том числе нескольких выбранных строк).
+- Категории расходов, дата, сумма и проверка полей формы.
+- Адаптивный интерфейс для компьютеров и телефонов.
+- Экран аналитики с выбором периода и диаграммой.
 
-## React Compiler
+**Текущее ограничение:** аналитика пока использует демонстрационные значения из `AnalyticsProvider`, а не реальную статистику транзакций. Её интеграция с API требует отдельной проверки.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Технологии
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+React 19, React Router 7, Vite 8, styled-components, Axios, Fetch API, ESLint, Prettier.
 
-## Expanding the ESLint configuration
+## Запуск
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Требуется актуальная версия Node.js, совместимая с Vite 8.
+
+```bash
+git clone https://github.com/SHADrussed/skypro-wallet.git
+cd skypro-wallet
+npm ci
+npm run dev
+```
+
+Откройте адрес, указанный Vite в терминале (обычно http://localhost:5173).
+
+Сборка и проверка кода:
+
+```bash
+npm run lint
+npm run format:check
+npm run build
+npm run preview
+```
+
+Для просмотра личных расходов необходимо зарегистрироваться или авторизоваться. API доступен по адресу `https://wedev-api.sky.pro/api`; операции с транзакциями требуют Bearer-токен. Тестовые логины и пароли не хранятся в репозитории.
+
+## Участники команды
+
+- [SHADrussed](https://github.com/SHADrussed) — страница аналитики и её адаптивность, работа с периодами, интеграция API расходов, рефакторинг.
+- [TOLIKLOL777](https://github.com/TOLIKLOL777) — регистрация, авторизация, защищённые маршруты, интерфейс расходов и адаптивная вёрстка.
+
+## API
+
+Документация транзакций: https://github.com/AlenaSol/webdev-hw-api/tree/main/pages/api/transactions
+
+- `GET /api/transactions` — список расходов.
+- `POST /api/transactions` — создание.
+- `PATCH /api/transactions/:id` — редактирование.
+- `DELETE /api/transactions/:id` — удаление.
+
+Сервер возвращает обновлённый список расходов после успешных изменений. Код API находится в `src/services/transactions.js`; UI — в `src/components/SpendingTable`, `Expenses`, `ExpenseForm`.
+
+## Учебная сдача
+
+Изменения вносятся через отдельные ветки и Pull Request в `develop`. В описании PR указываются ссылки на задачи Kaiten, плановое и фактическое время, описание и критерии завершения.
