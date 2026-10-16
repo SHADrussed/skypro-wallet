@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "qa:responsive": "node scripts/responsive-qa.mjs"
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.3.0",
