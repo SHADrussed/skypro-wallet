@@ -75,7 +75,10 @@ export const NavLink = styled(RouterNavLink)`
   }
 `
 
-export const Exit = styled.a`
+export const Exit = styled.button`
+  background: transparent;
+  border: 0;
+  padding: 0;
   justify-self: end;
 
   font-weight: ${theme.typography.fontWeight.semibold};
