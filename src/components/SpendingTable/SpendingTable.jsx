@@ -4,6 +4,7 @@ import {
   Page,
   PageHeader,
   PageTitle,
+  Feedback,
 } from './SpendingTable.styled'
 import Expenses from '../Expenses/Expenses'
 import ExpenseForm from '../ExpenseForm/ExpenseForm'
@@ -93,8 +94,11 @@ const SpendingTable = () => {
 
   return (
     <Page>
-      {error && <p role="alert">{error}</p>}
-      {isLoading && <p role="status">Загрузка расходов...</p>}
+      {error ? (
+        <Feedback role="alert">{error}</Feedback>
+      ) : isLoading ? (
+        <Feedback role="status">Загрузка расходов...</Feedback>
+      ) : null}
       <BackButton
         type="button"
         $visible={isForm}
