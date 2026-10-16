@@ -11,17 +11,26 @@ import {
   DeleteButton,
 } from './Expenses.styled'
 
-const Expenses = ({ transactions = [], onDelete, $hiddenMobile }) => {
+const Expenses = ({ transactions = [], onDelete, onEdit, isBusy = false, $hiddenMobile }) => {
   const [selectedIds, setSelectedIds] = useState([])
 
   const toggleSelect = (id) => {
-    $hiddenMobile && setSelectedIds(id)
+    if (isBusy) return
+    setSelectedIds((previous) =>
+      previous.includes(id)
+        ? previous.filter((selectedId) => selectedId !== id)
+        : [...previous, id],
+    )
   }
 
-  const handleDelete = () => {
-    if (selectedIds.length === 0) return
-    onDelete?.(selectedIds)
-    setSelectedIds([])
+  const handleDelete = async () => {
+    if (isBusy || selectedIds.length === 0) return
+    try {
+      await onDelete(selectedIds)
+      setSelectedIds([])
+    } catch {
+      // The parent displays the API error and resynchronizes the list.
+    }
   }
 
   return (
@@ -45,13 +54,15 @@ const Expenses = ({ transactions = [], onDelete, $hiddenMobile }) => {
               {...transaction}
               isSelected={selectedIds.includes(id)}
               onSelect={() => toggleSelect(id)}
+              onEdit={() => onEdit(transaction)}
+              isBusy={isBusy}
             />
           )
         })}
       </TableBody>
 
       <DeletionForm $visible={selectedIds.length > 0}>
-        <DeleteButton type="button" onClick={handleDelete}>
+        <DeleteButton type="button" onClick={handleDelete} disabled={isBusy}>
           Удалить расход
         </DeleteButton>
       </DeletionForm>
