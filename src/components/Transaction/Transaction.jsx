@@ -3,6 +3,8 @@ import {
   TransactionValue,
   TransactionValueRight,
   TransactionDelete,
+  TransactionActions,
+  EditAction,
 } from './Transaction.styled'
 
 const categories = {
@@ -28,9 +30,11 @@ const Transaction = ({
   sum,
   isSelected = false,
   onSelect,
+  onEdit,
+  isBusy = false,
 }) => {
   return (
-    <Container $selected={isSelected} onClick={onSelect}>
+    <Container $selected={isSelected} onClick={onSelect} title="Нажмите строку для выбора расхода">
       <TransactionValue $selected={isSelected}>{description}</TransactionValue>
       <TransactionValue $selected={isSelected}>
         {categories[category]}
@@ -41,7 +45,21 @@ const Transaction = ({
       <TransactionValueRight $selected={isSelected}>
         {sum} ₽
       </TransactionValueRight>
-      <TransactionDelete src="/bag.svg" alt="Удалить" />
+      <TransactionActions>
+        <EditAction
+          type="button"
+          aria-label={`Редактировать расход: ${description}`}
+          title="Редактировать"
+          disabled={isBusy}
+          onClick={(event) => {
+            event.stopPropagation()
+            onEdit?.()
+          }}
+        >
+          ✎
+        </EditAction>
+        <TransactionDelete src="/bag.svg" alt="" aria-hidden="true" />
+      </TransactionActions>
     </Container>
   )
 }
