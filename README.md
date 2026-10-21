@@ -24,7 +24,7 @@ React 19, React Router 7, Vite 8, styled-components, Axios, Fetch API, ESLint, P
 Требуется актуальная версия Node.js, совместимая с Vite 8.
 
 ```bash
-git clone https://github.com/SHADrussed/skypro-wallet.git
+git clone --branch develop https://github.com/SHADrussed/skypro-wallet.git
 cd skypro-wallet
 npm ci
 npm run dev
@@ -65,3 +65,14 @@ npm run preview
 ## Учебная сдача
 
 Изменения вносятся через отдельные ветки и Pull Request в `develop`. В описании PR указываются ссылки на задачи Kaiten, плановое и фактическое время, описание и критерии завершения.
+
+Готовая версия: [ветка develop](https://github.com/SHADrussed/skypro-wallet/tree/develop).
+Основной функционал: [PR #6](https://github.com/SHADrussed/skypro-wallet/pull/6).
+Переносимые QA-инструкции: [PR #7](https://github.com/SHADrussed/skypro-wallet/pull/7).
+Оба PR объединены; #7 одобрен TOLIKLOL777 21.10.2026.
+
+Для новых веток используем `feat/<задача>`, `fix/<ошибка>` или `docs/<тема>` с PR в `develop`. Старые ветки и историю объединённых PR не переименовываем.
+
+При копировании ссылок проверьте, что после `develop` или номера PR нет невидимых символов: суффикс `%E2%81%A0` (word joiner) приводит к 404. Ссылки выше очищены.
+
+Состояние проверок и оставшиеся пункты сдачи: [docs/FINAL_REVIEW.md](docs/FINAL_REVIEW.md).
