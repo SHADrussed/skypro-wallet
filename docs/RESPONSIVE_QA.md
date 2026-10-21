@@ -5,10 +5,11 @@
 
 ## Стандартный Frontend QA
 
-CLI находится в отдельном каталоге и не копируется в проект. Из корня Skypro Wallet:
+CLI находится в отдельном каталоге и не копируется в проект. Укажите расположение внешнего Frontend QA в переменной окружения `FRONTEND_QA_DIR` (PowerShell). Инструменты QA не входят в репозиторий SkyproWallet. Из корня SkyproWallet:
 
 ```powershell
-node 'C:\Users\shad_\Documents\Codex\2026-10-07\frontend-qa\src\cli.js' --config qa.config.js
+$env:FRONTEND_QA_DIR = 'ПУТЬ_К_ВНЕШНЕМУ_FRONTEND_QA'
+node "$env:FRONTEND_QA_DIR/src/cli.js" --config qa.config.js
 ```
 
 Конфигурация следует реальному API Frontend QA: lint, production build, preview на `127.0.0.1:4186`, шесть маршрутов и ширины 320/375/390/768/1024/1440. Результаты: `.qa/report.md`, `.qa/screenshots/`.
@@ -20,10 +21,10 @@ node 'C:\Users\shad_\Documents\Codex\2026-10-07\frontend-qa\src\cli.js' --config
 После сборки:
 
 ```powershell
-npm run qa:responsive -- --qa-dir 'C:\Users\shad_\Documents\Codex\2026-10-07\frontend-qa' --phase after --out .qa-auth
+npm run qa:responsive -- --phase after --out .qa-auth
 ```
 
-Или задайте путь через `FRONTEND_QA_DIR`. Скрипт использует Playwright, диагностику, проверку overflow и Markdown-отчёт из существующего Frontend QA, запускает отдельный preview на `127.0.0.1:4187` и закрывает только свой сервер. Локальные инструменты и их инфраструктура не изменяются.
+При необходимости передайте путь параметром `--qa-dir`. По умолчанию скрипт использует `FRONTEND_QA_DIR`. Скрипт использует Playwright, диагностику, проверку overflow и Markdown-отчёт из существующего Frontend QA, запускает отдельный preview на `127.0.0.1:4187` и закрывает только свой сервер. Локальные инструменты и их инфраструктура не изменяются.
 
 Проверяются таблица, новая/редактируемая форма, выбор строк, аналитика до и после выбора дат, календарь дней/месяцев и раскрытое мобильное меню. Дополнительно — переход из меню в новую форму, возврат и видимость подтверждения при высоте окна 500 px. Проверяются переполнение страницы, наложение шапки, выход полей за форму, прокрутка графика по горизонтали и ошибки console/page/network. Результаты: `.qa-auth/report.md`, `results.json`, `screenshots/`.
 
